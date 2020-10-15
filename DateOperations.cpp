@@ -11,12 +11,12 @@ void DateOperations::setPresentDateString()
 
     presentDateString = year + "-" + month + "-" + monthday;
 }
-/*
+
 string DateOperations::getPresentDateString()
 {
     return presentDateString;
 }
-*/
+
 void DateOperations::setPresentDateInt()
 {
     presentDateInt = transcriptDateSplittedByACharacterFromStringToInt(presentDateString, '-');
