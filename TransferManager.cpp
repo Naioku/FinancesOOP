@@ -168,89 +168,83 @@ int TransferManager::passChosenIncomeId()
     chosenIncomeId  = HelpingMethods::getTheInt();
     return chosenIncomeId;
 }
-/*
-void AdresatMenedzer::edytujAdresata()
+
+void TransferManager::editIncome()
 {
     system("cls");
-    int idEdytowanegoAdresata = 0;
+    int editIncomeId = 0;
     //int numerLiniiEdytowanegoAdresata = 0;
-    string liniaZDanymiAdresata = "";
 
-    cout << ">>> EDYCJA WYBRANEGO ADRESATA <<<" << endl << endl;
-    idEdytowanegoAdresata = passChosenIncomeId();
+    cout << ">>> INCOME EDITION <<<" << endl << endl;
+    editIncomeId = passChosenIncomeId();
 
-    char wybor;
-    bool czyIstniejeAdresat = false;
-
-    for (int i = 0; i < adresaci.size(); i++)
+    char choice;
+    bool doesIncomeExist = false;
+    string date;
+    for (int i = 0; i < incomes.size(); i++)
     {
-        if (adresaci[i].pobierzId() == idEdytowanegoAdresata)
+        if (incomes[i].getId() == editIncomeId)
         {
-            czyIstniejeAdresat = true;
-            wybor = wybierzOpcjeZMenuEdycja();
+            doesIncomeExist = true;
+            choice = chooseTheOptionFromEditMenu();
 
-            switch (wybor)
+            switch (choice)
             {
             case '1':
-                cout << "Podaj nowe imie: ";
-                adresaci[i].ustawImie(MetodyPomocnicze::zamienPierwszaLitereNaDuzaAPozostaleNaMale(MetodyPomocnicze::wczytajLinie()));
-                zaktualizujDaneWybranegoAdresata(adresaci[i]);
+                while (true)
+                {
+                    cout << "Type new date: ";
+                    date = HelpingMethods::getTheLine();
+                    if (dateOperations.isDateCorrect(date))
+                        break;
+                    cout << "Date has incorrect format. Please, type again." << endl;
+                }
+                incomes[i].setDate(date);
+                //updateChosenIncomeData(incomes[i]); IncomesFile
                 break;
             case '2':
-                cout << "Podaj nowe nazwisko: ";
-                adresaci[i].ustawNazwisko(MetodyPomocnicze::zamienPierwszaLitereNaDuzaAPozostaleNaMale(MetodyPomocnicze::wczytajLinie()));
-                zaktualizujDaneWybranegoAdresata(adresaci[i]);
+                cout << "Type new item: ";
+                incomes[i].setItem(HelpingMethods::changeFirstLetterToUpperRestToLower(HelpingMethods::getTheLine()));
+                //updateChosenIncomeData(incomes[i]); IncomesFile
                 break;
             case '3':
-                cout << "Podaj nowy numer telefonu: ";
-                adresaci[i].ustawNumerTelefonu(MetodyPomocnicze::wczytajLinie());
-                zaktualizujDaneWybranegoAdresata(adresaci[i]);
+                cout << "Type new amount: ";
+                incomes[i].setAmount(HelpingMethods::getTheLine());
+                //updateChosenIncomeData(incomes[i]); IncomesFile
                 break;
             case '4':
-                cout << "Podaj nowy email: ";
-                adresaci[i].ustawEmail(MetodyPomocnicze::wczytajLinie());
-                zaktualizujDaneWybranegoAdresata(adresaci[i]);
-                break;
-            case '5':
-                cout << "Podaj nowy adres zamieszkania: ";
-                adresaci[i].ustawAdres(MetodyPomocnicze::wczytajLinie());
-                zaktualizujDaneWybranegoAdresata(adresaci[i]);
-                break;
-            case '6':
-                cout << endl << "Powrot do menu uzytkownika" << endl << endl;
+                cout << endl << "Return to the USER MENU" << endl << endl;
                 break;
             default:
-                cout << endl << "Nie ma takiej opcji w menu! Powrot do menu uzytkownika." << endl << endl;
+                cout << endl << "There is not option you want to choose in that menu! Returning to the USER MENU." << endl << endl;
                 break;
             }
         }
     }
-    if (czyIstniejeAdresat == false)
+    if (doesIncomeExist == false)
     {
-        cout << endl << "Nie ma takiego adresata." << endl << endl;
+        cout << endl << "There is not income you want to get." << endl << endl;
     }
     system("pause");
 }
 
-char TransferManager::wybierzOpcjeZMenuEdycja()
+char TransferManager::chooseTheOptionFromEditMenu()
 {
-    char wybor;
+    char choice;
 
-    cout << endl << "   >>> MENU  EDYCJA <<<" << endl;
+    cout << endl << "   >>> EDIT MENU <<<" << endl;
     cout << "---------------------------" << endl;
-    cout << "Ktore dane zaktualizowac: " << endl;
-    cout << "1 - Imie" << endl;
-    cout << "2 - Nazwisko" << endl;
-    cout << "3 - Numer telefonu" << endl;
-    cout << "4 - Email" << endl;
-    cout << "5 - Adres" << endl;
-    cout << "6 - Powrot " << endl;
-    cout << endl << "Twoj wybor: ";
-    wybor = MetodyPomocnicze::wczytajZnak();
+    cout << "Which data you want to update: " << endl;
+    cout << "1 - Date" << endl;
+    cout << "2 - Item" << endl;
+    cout << "3 - Amount" << endl;
+    cout << "4 - Return " << endl;
+    cout << endl << "Your choice: ";
+    choice = HelpingMethods::getTheChar();
 
-    return wybor;
+    return choice;
 }
-
+/*
 void TransferManager::zaktualizujDaneWybranegoAdresata(Adresat adresat)
 {
     plikZAdresatami.edytujWybranaLinieWPliku(adresat);

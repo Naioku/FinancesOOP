@@ -88,6 +88,9 @@ int main()
         case '1':
             transferManager.addIncome();
             break;
+        case '6':
+            transferManager.editIncome();
+            break;
         case '7':
             transferManager.deleteIncome();
             break;

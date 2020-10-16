@@ -22,8 +22,8 @@ class TransferManager
     Income passNewIncomeData();
     void listIncomeData(Income income);
     int passChosenIncomeId();
-    //char chooseTheOptionFromEditMenu();
-    //void updateChosenIncomeData(Income income);
+    char chooseTheOptionFromEditMenu();
+    void updateChosenIncomeData(Income income);
     //void showFoundIncomesQuantity(int incomesQuantity);
 
     int getLastIncomeId();// Temporary
@@ -41,7 +41,8 @@ public:
     void addIncome();
     void listAllIncomes();
     void deleteIncome();
-    //void editIncome();
+    void editIncome();
+
 
     // Ideas
     //void searchByItem();
