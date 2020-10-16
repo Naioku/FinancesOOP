@@ -1,3 +1,6 @@
+#ifndef DATE_OPERATIONS_H
+#define DATE_OPERATIONS_H
+
 #include <iostream>
 #include <ctime>
 
@@ -27,5 +30,8 @@ public:
     bool isDateCorrect(string date);
     bool isDateBetweenProvidedDates(string dateFromInString, string dateToInString, string dateFromFileInString);
     bool isDateFromFileInProvidedMonth(string dateFromFileInString, string presentOrPreviousMonth);
+    string getPresentDateString();
 
 };
+
+#endif // DATE_OPERATIONS_H
