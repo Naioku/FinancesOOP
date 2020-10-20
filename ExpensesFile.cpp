@@ -1,72 +1,72 @@
-#include "IncomesFile.h"
+#include "ExpensesFile.h"
 
-int IncomesFile::getTheLastIncomeId()
+int ExpensesFile::getTheLastExpenseId()
 {
-    return lastIncomeId;
+    return lastExpenseId;
 }
 
-void IncomesFile::setTheLastIncomeId(int id)
+void ExpensesFile::setTheLastExpenseId(int id)
 {
-    lastIncomeId = id;
+    lastExpenseId = id;
 }
 
-bool IncomesFile::addIncomeToFile(Income income)
+bool ExpensesFile::addExpenseToFile(Expense expense)
 {
-    bool fileExists = xml.Load(INCOMES_FILE_NAME);
+    bool fileExists = xml.Load(EXPENSES_FILE_NAME);
     if (!fileExists)
     {
         xml.SetDoc("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n");
-        xml.AddElem("Incomes");
+        xml.AddElem("Expenses");
     }
     xml.ResetPos();
     xml.FindElem();
     xml.IntoElem();
-    xml.AddElem("Income");
+    xml.AddElem("Expense");
     xml.IntoElem();
-    xml.AddElem("Id", income.getId());
-    xml.AddElem("UserId", income.getUserId());
-    xml.AddElem("Date", income.getDate());
-    xml.AddElem("Item", income.getItem());
-    xml.AddElem("Amount", income.getAmount());
+    xml.AddElem("Id", expense.getId());
+    xml.AddElem("UserId", expense.getUserId());
+    xml.AddElem("Date", expense.getDate());
+    xml.AddElem("Item", expense.getItem());
+    xml.AddElem("Amount", expense.getAmount());
 
-    xml.Save(INCOMES_FILE_NAME);
+    xml.Save(EXPENSES_FILE_NAME);
     return true;
 }
 
-string IncomesFile::getOneDataOfOneTransferFromFile(string data_type)
+string ExpensesFile::getOneDataOfOneTransferFromFile(string data_type)
 {
     xml.FindChildElem(data_type);
     return xml.GetChildData();
 }
 
-vector<Income> IncomesFile::loadIncomesFromFile(int loggedUserId)
+vector<Expense> ExpensesFile::loadExpensesFromFile(int loggedUserId)
 {
-    Income income;
-    vector<Income> incomes;
+    Expense expense;
+    vector<Expense> expenses;
     int oneTransferUserId;
 
-    xml.Load("incomes.xml");
+    xml.Load("expenses.xml");
     xml.ResetPos();
     xml.FindElem();
     xml.IntoElem();
-    while (xml.FindElem("Income"))
+    while (xml.FindElem("Expense"))
     {
         oneTransferUserId = atoi(getOneDataOfOneTransferFromFile("UserId").c_str());
         if (oneTransferUserId == loggedUserId)
         {
             xml.ResetChildPos();
-            lastIncomeId = atoi(getOneDataOfOneTransferFromFile("Id").c_str());
-            income.setId(lastIncomeId);
-            income.setUserId(oneTransferUserId);
-            income.setDate(getOneDataOfOneTransferFromFile("Date"));
-            income.setItem(getOneDataOfOneTransferFromFile("Item"));
-            income.setAmount(getOneDataOfOneTransferFromFile("Amount"));
+            lastExpenseId = atoi(getOneDataOfOneTransferFromFile("Id").c_str());
+            expense.setId(lastExpenseId);
+            expense.setUserId(oneTransferUserId);
+            expense.setDate(getOneDataOfOneTransferFromFile("Date"));
+            expense.setItem(getOneDataOfOneTransferFromFile("Item"));
+            expense.setAmount(getOneDataOfOneTransferFromFile("Amount"));
 
-            incomes.push_back(income);
+            expenses.push_back(expense);
         }
     }
 
-    return incomes;
+    return expenses;
 }
 /*
 int IncomesFile::pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami)

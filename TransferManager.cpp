@@ -1,18 +1,6 @@
 #include "TransferManager.h"
 
-// Temporary functions
-int TransferManager::getLastIncomeId()
-{
-    int incomesSize = incomes.size();
-    int id;
-    for (int i = 0; i < incomesSize; i++)
-    {
-        id = incomes[i].getId();
-    }
-
-    return id;
-}
-//=========================
+// INCOMES ===========================================================
 
 void TransferManager::addIncome()
 {
@@ -36,9 +24,8 @@ Income TransferManager::passNewIncomeData()
 {
     Income income;
 
-    income.setId(getLastIncomeId() + 1); // temporary
-    //income.setId(plikZAdresatami.pobierzIdOstatniegoAdresata() + 1); - instead this above
-    //plikZAdresatami.ustawIdOstatniegoAdresata(plikZAdresatami.pobierzIdOstatniegoAdresata() + 1);
+    income.setId(incomesFile.getTheLastIncomeId() + 1);
+    incomesFile.setTheLastIncomeId(incomesFile.getTheLastIncomeId() + 1);
     income.setUserId(LOGGED_USER_ID);
 
     string date;
@@ -67,9 +54,9 @@ void TransferManager::listIncomeData(Income income)
 {
     cout << endl;
     cout << endl << "Id:                 " << income.getId() << endl;
-    cout << "Imie:               " << income.getDate() << endl;
-    cout << "Nazwisko:           " << income.getItem() << endl;
-    cout << "Numer telefonu:     " << income.getAmount() << endl;
+    cout << "Date:               " << income.getDate() << endl;
+    cout << "Item:               " << income.getItem() << endl;
+    cout << "Amount:             " << income.getAmount() << endl;
     cout << endl;
 }
 
@@ -93,6 +80,88 @@ void TransferManager::listAllIncomes()
     system("pause");
 }
 
+// EXPENSES ======================================================
+
+void TransferManager::addExpense()
+{
+    Expense expense;
+
+    system("cls");
+    cout << " >>> ADDING NEW INCOME <<<" << endl << endl;
+    expense = passNewExpenseData();
+
+    expenses.push_back(expense);
+
+    if (expensesFile.addExpenseToFile(expense))
+        cout << "New expense has been added successfully." << endl;
+    else
+        cout << "Error! We could not add new expense." << endl;
+
+    system("pause");
+}
+
+Expense TransferManager::passNewExpenseData()
+{
+    Expense expense;
+
+    expense.setId(expensesFile.getTheLastExpenseId() + 1);
+    expensesFile.setTheLastExpenseId(expensesFile.getTheLastExpenseId() + 1);
+    expense.setUserId(LOGGED_USER_ID);
+
+    string date;
+    while (true)
+    {
+        cout << "Write down date: ";
+        date = HelpingMethods::getTheLine();
+        if (dateOperations.isDateCorrect(date))
+            break;
+        cout << "Date has incorrect format. Please, type again." << endl;
+    }
+
+    expense.setDate(date);
+
+    cout << "Write down item: ";
+    expense.setItem(HelpingMethods::getTheLine());
+    expense.setItem(HelpingMethods::changeFirstLetterToUpperRestToLower(expense.getItem()));
+
+    cout << "Write down amount: ";
+    expense.setAmount(HelpingMethods::getTheLine());
+
+    return expense;
+}
+
+void TransferManager::listExpenseData(Expense expense)
+{
+    cout << endl;
+    cout << endl << "Id:                 " << expense.getId() << endl;
+    cout << "Date:               " << expense.getDate() << endl;
+    cout << "Item:               " << expense.getItem() << endl;
+    cout << "Amount:             " << expense.getAmount() << endl;
+    cout << endl;
+}
+
+void TransferManager::listAllExpenses()
+{
+    system("cls");
+    if (!expenses.empty())
+    {
+        cout << "             >>> EXPENSES <<<" << endl;
+        cout << "-----------------------------------------------" << endl;
+        for (vector <Expense> :: iterator itr = expenses.begin(); itr != expenses.end(); itr++)
+        {
+            listExpenseData(*itr);
+        }
+        cout << endl;
+    }
+    else
+    {
+        cout << endl << "There is not any expense." << endl << endl;
+    }
+    system("pause");
+}
+
+//=============================================================
+
 char TransferManager::chooseTheOptionFromUserMenu()
 {
     char choice;
@@ -102,8 +171,8 @@ char TransferManager::chooseTheOptionFromUserMenu()
     cout << "---------------------------" << endl;
     cout << "1. Add Income" << endl;
     cout << "2. List all incomes" << endl; // Add Expense
-    cout << "3. Show current month balance" << endl;
-    cout << "4. Show previous month balance" << endl;
+    cout << "3. List all expenses" << endl; // Show current month balance
+    cout << "4. Add expense" << endl; // Show previous month balance
     cout << "5. Show balance of provided period" << endl;
     cout << "6. Edit Income" << endl;
     cout << "7. Delete Income" << endl;
@@ -116,7 +185,7 @@ char TransferManager::chooseTheOptionFromUserMenu()
 
     return choice;
 }
-
+/*
 void TransferManager::deleteIncome()
 {
     int deletingIncomeId = 0;
@@ -244,7 +313,7 @@ char TransferManager::chooseTheOptionFromEditMenu()
 
     return choice;
 }
-/*
+
 void TransferManager::zaktualizujDaneWybranegoAdresata(Adresat adresat)
 {
     plikZAdresatami.edytujWybranaLinieWPliku(adresat);
