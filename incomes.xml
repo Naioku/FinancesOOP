@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Incomes>
+<Income>
+<Id>1</Id>
+<UserId>1</UserId>
+<Date>2000-12-12</Date>
+<Item>5</Item>
+<Amount>5</Amount>
+</Income>
+<Income>
+<Id>2</Id>
+<UserId>1</UserId>
+<Date>2000-12-13</Date>
+<Item>6</Item>
+<Amount>6</Amount>
+</Income>
+</Incomes>

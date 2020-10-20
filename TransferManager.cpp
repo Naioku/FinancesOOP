@@ -23,12 +23,12 @@ void TransferManager::addIncome()
     income = passNewIncomeData();
 
     incomes.push_back(income);
-    /*
-    if (plikZAdresatami.dopiszAdresataDoPliku(adresat))
-        cout << "Nowy adresat zostal dodany pomyslnie." << endl;
+
+    if (incomesFile.addIncomeToFile(income))
+        cout << "New income has been added successfully." << endl;
     else
-        cout << "Blad! Nie udalo sie dodac adresata do pliku." << endl;
-    */
+        cout << "Error! We could not add new income." << endl;
+
     system("pause");
 }
 

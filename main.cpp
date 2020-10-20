@@ -76,7 +76,7 @@ int UserManager_main()
 
 int main()
 {
-    TransferManager transferManager(1);
+    TransferManager transferManager("incomes.xml", 1);
     char choice;
 
     while (true)

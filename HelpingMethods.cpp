@@ -54,3 +54,15 @@ int HelpingMethods::getTheInt()
     return number;
 }
 
+string HelpingMethods::truncStringfloatToTwoDigitsAfterPoint(string number)
+{
+    int number_length = number.length();
+    number.erase(number_length - 4, 4);
+    return number;
+}
+
+float HelpingMethods::round(float var)
+{
+    float value = (int)(var * 100 + 0.5);
+    return (float)value/100;
+}

@@ -14,6 +14,8 @@ public:
     static char getTheChar();
     static int getTheInt();
     static string changeFirstLetterToUpperRestToLower(string text);
+    static string truncStringfloatToTwoDigitsAfterPoint(string number);
+    static float round(float var);
 };
 
 #endif // HELPING_METHODS_H

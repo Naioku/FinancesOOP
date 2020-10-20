@@ -115,7 +115,6 @@ bool DateOperations::isDateBetweenProvidedDates(string dateFromInString, string 
 bool DateOperations::isDateCorrect(string dateInString)
 {
     int dateInInt = transcriptDateSplittedByACharacterFromStringToInt(dateInString, '-');
-    cout << dateInInt << endl;
     int day = getDayFromDateInt(dateInInt);
     int month = getMonthFromDateInt(dateInInt);
 
