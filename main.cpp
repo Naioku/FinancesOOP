@@ -76,7 +76,7 @@ int UserManager_main()
 
 int main()
 {
-    TransferManager transferManager("incomes.xml", 1);
+    TransferManager transferManager("incomes.xml", "expenses.xml", 1);
     char choice;
 
     while (true)
@@ -88,15 +88,22 @@ int main()
         case '1':
             transferManager.addIncome();
             break;
-        case '6':
-            transferManager.editIncome();
-            break;
-        case '7':
-            transferManager.deleteIncome();
-            break;
         case '2':
             transferManager.listAllIncomes();
             break;
+        case '3':
+            transferManager.listAllExpenses();
+            break;
+        case '4':
+            transferManager.addExpense();
+            break;
+        case '6':
+            //transferManager.editIncome();
+            break;
+        case '7':
+            //transferManager.deleteIncome();
+            break;
+
         case '0':
             exit(0);
             break;
