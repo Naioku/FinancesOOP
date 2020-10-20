@@ -8,7 +8,7 @@
 #include "Income.h"
 #include "HelpingMethods.h"
 #include "DateOperations.h"
-//#include "PlikZAdresatami.h"
+#include "IncomesFile.h"
 
 using namespace std;
 
@@ -16,7 +16,10 @@ class TransferManager
 {
     const int LOGGED_USER_ID;
     vector <Income> incomes;
+    IncomesFile incomesFile;
+    //vector <Expense> expenses;
     //IncomesFile incomesFile;
+
     DateOperations dateOperations;
 
     Income passNewIncomeData();
@@ -30,12 +33,11 @@ class TransferManager
 
 
 public:
-    //TransferManager(string incomesFileName = "", int loggedUserId = 0)
-        //: incomesFile(passNewUserData), LOGGED_USER_ID(loggedUserId)
-    TransferManager(int loggedUserId = 0)
-        : LOGGED_USER_ID(loggedUserId)
+
+    TransferManager(string incomesFileName = "", int loggedUserId = 0)
+        : incomesFile(incomesFileName), LOGGED_USER_ID(loggedUserId)
     {
-        //adresaci = plikZAdresatami.wczytajAdresatowZalogowanegoUzytkownikaZPliku(ID_ZALOGOWANEGO_UZYTKOWNIKA);
+        incomes = incomesFile.loadIncomesFromFile(LOGGED_USER_ID);
     };
 
     void addIncome();
