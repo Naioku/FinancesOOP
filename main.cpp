@@ -98,10 +98,10 @@ int main()
             transferManager.addExpense();
             break;
         case '6':
-            //transferManager.editIncome();
+            transferManager.deleteIncome();
             break;
         case '7':
-            //transferManager.deleteIncome();
+            transferManager.deleteExpense();
             break;
 
         case '0':

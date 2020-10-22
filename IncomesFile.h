@@ -20,6 +20,7 @@ class IncomesFile
     CMarkup xml;
 
     string getOneDataOfOneTransferFromFile(string data_type);
+    void getLastIncomeIdFromFile();
     //int pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami);
     //Adresat pobierzDaneAdresata(string daneAdresataOddzielonePionowymiKreskami);
     //string pobierzLiczbe(string tekst, int pozycjaZnaku);
@@ -38,6 +39,9 @@ public:
     void setTheLastIncomeId(int id);
     bool addIncomeToFile(Income income);
     vector<Income> loadIncomesFromFile(int loggedUserId);
+    bool deleteOneIncomeInFileById(int deletedIncomeId);
+    void refreshLastIncomeIdAfterRemovingChosenIncome(int deletedIncomeId);
+    void updateIncomesInFile();
     //void usunWybranaLinieWPliku(int idUsuwanegoAdresata);
     //void odswiezIdOstatniegoAdresataPoUsunieciuWybranegoAdresata(int idUsuwanegoAdresata);
     //void pobierzZPlikuIdOstatniegoAdresata();

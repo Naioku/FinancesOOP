@@ -20,6 +20,7 @@ class ExpensesFile
     CMarkup xml;
 
     string getOneDataOfOneTransferFromFile(string data_type);
+    void getLastExpenseIdFromFile();
     //int pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami);
     //Adresat pobierzDaneAdresata(string daneAdresataOddzielonePionowymiKreskami);
     //string pobierzLiczbe(string tekst, int pozycjaZnaku);
@@ -38,6 +39,8 @@ public:
     void setTheLastExpenseId(int id);
     bool addExpenseToFile(Expense expense);
     vector<Expense> loadExpensesFromFile(int loggedUserId);
+    bool deleteOneExpenseInFileById(int deletedExpenseId);
+    void refreshLastIncomeIdAfterRemovingChosenIncome(int deletedExpenseId);
     //void usunWybranaLinieWPliku(int idUsuwanegoAdresata);
     //void odswiezIdOstatniegoAdresataPoUsunieciuWybranegoAdresata(int idUsuwanegoAdresata);
     //void pobierzZPlikuIdOstatniegoAdresata();
