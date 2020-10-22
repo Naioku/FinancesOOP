@@ -45,7 +45,7 @@ vector<Expense> ExpensesFile::loadExpensesFromFile(int loggedUserId)
     vector<Expense> expenses;
     int oneTransferUserId;
 
-    xml.Load("expenses.xml");
+    xml.Load(EXPENSES_FILE_NAME);
     xml.ResetPos();
     xml.FindElem();
     xml.IntoElem();
@@ -68,6 +68,52 @@ vector<Expense> ExpensesFile::loadExpensesFromFile(int loggedUserId)
 
     return expenses;
 }
+
+bool ExpensesFile::deleteOneExpenseInFileById(int deletedExpenseId)
+{
+    int oneTransferId;
+    bool fileExists = xml.Load(EXPENSES_FILE_NAME);
+    if (fileExists)
+    {
+        xml.ResetPos();
+        xml.FindElem();
+        xml.IntoElem();
+        while (xml.FindElem("Expense"))
+        {
+            oneTransferId = atoi(getOneDataOfOneTransferFromFile("Id").c_str());
+            if (oneTransferId == deletedExpenseId)
+            {
+                xml.RemoveElem();
+            }
+        }
+        xml.Save(EXPENSES_FILE_NAME);
+    }
+    return fileExists;
+}
+
+void ExpensesFile::refreshLastIncomeIdAfterRemovingChosenIncome(int deletedExpenseId)
+{
+    if (deletedExpenseId == lastExpenseId)
+        getLastExpenseIdFromFile();
+}
+
+void ExpensesFile::getLastExpenseIdFromFile()
+{
+    lastExpenseId = 0;
+
+    bool fileExists = xml.Load(EXPENSES_FILE_NAME);
+    if (fileExists)
+    {
+        xml.ResetPos();
+        xml.FindElem();
+        xml.IntoElem();
+        while (xml.FindElem("Expense"))
+        {
+            lastExpenseId = atoi(getOneDataOfOneTransferFromFile("Id").c_str());
+        }
+    }
+}
+
 /*
 int IncomesFile::pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami)
 {

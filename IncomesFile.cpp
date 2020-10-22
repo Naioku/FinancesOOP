@@ -45,7 +45,7 @@ vector<Income> IncomesFile::loadIncomesFromFile(int loggedUserId)
     vector<Income> incomes;
     int oneTransferUserId;
 
-    xml.Load("incomes.xml");
+    xml.Load(INCOMES_FILE_NAME);
     xml.ResetPos();
     xml.FindElem();
     xml.IntoElem();
@@ -68,6 +68,65 @@ vector<Income> IncomesFile::loadIncomesFromFile(int loggedUserId)
 
     return incomes;
 }
+
+bool IncomesFile::deleteOneIncomeInFileById(int deletedIncomeId)
+{
+    int oneTransferId;
+    bool fileExists = xml.Load(INCOMES_FILE_NAME);
+    if (fileExists)
+    {
+        xml.Load("incomes.xml");
+        xml.ResetPos();
+        xml.FindElem();
+        xml.IntoElem();
+        while (xml.FindElem("Income"))
+        {
+            oneTransferId = atoi(getOneDataOfOneTransferFromFile("Id").c_str());
+            if (oneTransferId == deletedIncomeId)
+            {
+                xml.RemoveElem();
+            }
+        }
+        xml.Save(INCOMES_FILE_NAME);
+    }
+    return fileExists;
+}
+
+void IncomesFile::refreshLastIncomeIdAfterRemovingChosenIncome(int deletedIncomeId)
+{
+    if (deletedIncomeId == lastIncomeId)
+        getLastIncomeIdFromFile();
+}
+
+void IncomesFile::getLastIncomeIdFromFile()
+{
+    lastIncomeId = 0;
+
+    bool fileExists = xml.Load(INCOMES_FILE_NAME);
+    if (fileExists)
+    {
+        xml.ResetPos();
+        xml.FindElem();
+        xml.IntoElem();
+        while (xml.FindElem("Income"))
+        {
+            lastIncomeId = atoi(getOneDataOfOneTransferFromFile("Id").c_str());
+        }
+    }
+}
+/*
+void IncomesFile::updateIncomesInFile(vector<Income> incomes)
+{
+    deleteAllRecordsInFile();
+    int incomes_size = incomes.size();
+    for (int i = 0; i < incomes_size; i++)
+    {
+        addIncomeToFile(incomes[i]);
+    }
+}
+
+
+*/
 /*
 int IncomesFile::pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami)
 {
