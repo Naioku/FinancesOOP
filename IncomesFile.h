@@ -21,6 +21,8 @@ class IncomesFile
 
     string getOneDataOfOneTransferFromFile(string data_type);
     void getLastIncomeIdFromFile();
+    void removeAllInformationsAboutOneIncome();
+    void readdIncomeToFile(Income income);
     //int pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami);
     //Adresat pobierzDaneAdresata(string daneAdresataOddzielonePionowymiKreskami);
     //string pobierzLiczbe(string tekst, int pozycjaZnaku);
@@ -41,7 +43,7 @@ public:
     vector<Income> loadIncomesFromFile(int loggedUserId);
     bool deleteOneIncomeInFileById(int deletedIncomeId);
     void refreshLastIncomeIdAfterRemovingChosenIncome(int deletedIncomeId);
-    void updateIncomesInFile();
+    void editIncomeInFile(Income income);
     //void usunWybranaLinieWPliku(int idUsuwanegoAdresata);
     //void odswiezIdOstatniegoAdresataPoUsunieciuWybranegoAdresata(int idUsuwanegoAdresata);
     //void pobierzZPlikuIdOstatniegoAdresata();

@@ -114,6 +114,48 @@ void IncomesFile::getLastIncomeIdFromFile()
         }
     }
 }
+
+void IncomesFile::editIncomeInFile(Income income)
+{
+    int searchedIncomeId = income.getId();
+    int oneTransferId;
+    bool fileExists = xml.Load(INCOMES_FILE_NAME);
+    if (fileExists)
+    {
+        xml.ResetPos();
+        xml.FindElem();
+        xml.IntoElem();
+        while (xml.FindElem("Income"))
+        {
+            oneTransferId = atoi(getOneDataOfOneTransferFromFile("Id").c_str());
+            if (oneTransferId == searchedIncomeId)
+            {
+                removeAllInformationsAboutOneIncome();
+                readdIncomeToFile(income);
+            }
+        }
+    }
+    xml.Save(INCOMES_FILE_NAME);
+}
+
+void IncomesFile::removeAllInformationsAboutOneIncome()
+{
+    xml.ResetChildPos();
+    while (xml.FindChildElem())
+    {
+        xml.RemoveChildElem();
+    }
+}
+
+void IncomesFile::readdIncomeToFile(Income income)
+{
+    xml.IntoElem();
+    xml.AddElem("Id", income.getId());
+    xml.AddElem("UserId", income.getUserId());
+    xml.AddElem("Date", income.getDate());
+    xml.AddElem("Item", income.getItem());
+    xml.AddElem("Amount", income.getAmount());
+}
 /*
 void IncomesFile::updateIncomesInFile(vector<Income> incomes)
 {

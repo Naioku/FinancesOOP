@@ -21,6 +21,8 @@ class ExpensesFile
 
     string getOneDataOfOneTransferFromFile(string data_type);
     void getLastExpenseIdFromFile();
+    void removeAllInformationsAboutOneExpense();
+    void readdExpenseToFile(Expense expense);
     //int pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami);
     //Adresat pobierzDaneAdresata(string daneAdresataOddzielonePionowymiKreskami);
     //string pobierzLiczbe(string tekst, int pozycjaZnaku);
@@ -40,7 +42,8 @@ public:
     bool addExpenseToFile(Expense expense);
     vector<Expense> loadExpensesFromFile(int loggedUserId);
     bool deleteOneExpenseInFileById(int deletedExpenseId);
-    void refreshLastIncomeIdAfterRemovingChosenIncome(int deletedExpenseId);
+    void refreshLastExpenseIdAfterRemovingChosenExpense(int deletedExpenseId);
+    void editExpenseInFile(Expense expense);
     //void usunWybranaLinieWPliku(int idUsuwanegoAdresata);
     //void odswiezIdOstatniegoAdresataPoUsunieciuWybranegoAdresata(int idUsuwanegoAdresata);
     //void pobierzZPlikuIdOstatniegoAdresata();

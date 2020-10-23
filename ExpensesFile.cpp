@@ -91,7 +91,7 @@ bool ExpensesFile::deleteOneExpenseInFileById(int deletedExpenseId)
     return fileExists;
 }
 
-void ExpensesFile::refreshLastIncomeIdAfterRemovingChosenIncome(int deletedExpenseId)
+void ExpensesFile::refreshLastExpenseIdAfterRemovingChosenExpense(int deletedExpenseId)
 {
     if (deletedExpenseId == lastExpenseId)
         getLastExpenseIdFromFile();
@@ -112,6 +112,48 @@ void ExpensesFile::getLastExpenseIdFromFile()
             lastExpenseId = atoi(getOneDataOfOneTransferFromFile("Id").c_str());
         }
     }
+}
+
+void ExpensesFile::editExpenseInFile(Expense expense)
+{
+    int searchedExpenseId = expense.getId();
+    int oneTransferId;
+    bool fileExists = xml.Load(EXPENSES_FILE_NAME);
+    if (fileExists)
+    {
+        xml.ResetPos();
+        xml.FindElem();
+        xml.IntoElem();
+        while (xml.FindElem("Expense"))
+        {
+            oneTransferId = atoi(getOneDataOfOneTransferFromFile("Id").c_str());
+            if (oneTransferId == searchedExpenseId)
+            {
+                removeAllInformationsAboutOneExpense();
+                readdExpenseToFile(expense);
+            }
+        }
+    }
+    xml.Save(EXPENSES_FILE_NAME);
+}
+
+void ExpensesFile::removeAllInformationsAboutOneExpense()
+{
+    xml.ResetChildPos();
+    while (xml.FindChildElem())
+    {
+        xml.RemoveChildElem();
+    }
+}
+
+void ExpensesFile::readdExpenseToFile(Expense expense)
+{
+    xml.IntoElem();
+    xml.AddElem("Id", expense.getId());
+    xml.AddElem("UserId", expense.getUserId());
+    xml.AddElem("Date", expense.getDate());
+    xml.AddElem("Item", expense.getItem());
+    xml.AddElem("Amount", expense.getAmount());
 }
 
 /*

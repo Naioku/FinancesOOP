@@ -161,17 +161,17 @@ void TransferManager::editIncome()
                     cout << "Date has incorrect format. Please, type again." << endl;
                 }
                 incomes[i].setDate(date);
-                //updateChosenIncomeData(incomes[i]); IncomesFile
+                updateChosenIncomeData(incomes[i]);
                 break;
             case '2':
                 cout << "Type new item: ";
                 incomes[i].setItem(HelpingMethods::changeFirstLetterToUpperRestToLower(HelpingMethods::getTheLine()));
-                //updateChosenIncomeData(incomes[i]); IncomesFile
+                updateChosenIncomeData(incomes[i]);
                 break;
             case '3':
                 cout << "Type new amount: ";
                 incomes[i].setAmount(HelpingMethods::getTheLine());
-                //updateChosenIncomeData(incomes[i]); IncomesFile
+                updateChosenIncomeData(incomes[i]);
                 break;
             case '4':
                 cout << endl << "Returning to the USER MENU" << endl << endl;
@@ -187,6 +187,13 @@ void TransferManager::editIncome()
         cout << endl << "There is not income you want to get." << endl << endl;
     }
     system("pause");
+}
+
+void TransferManager::updateChosenIncomeData(Income income)
+{
+    incomesFile.editIncomeInFile(income);
+
+    cout << endl << "Data has been updated." << endl << endl;
 }
 
 // EXPENSES ======================================================
@@ -294,7 +301,7 @@ void TransferManager::deleteExpense()
                     expenses.erase(itr);
                     cout << endl << endl << "Searched expense has been deleted." << endl << endl;
                     system("pause");
-                    //plikZAdresatami.odswiezIdOstatniegoAdresataPoUsunieciuWybranegoAdresata(deleteExpenseId);
+                    expensesFile.refreshLastExpenseIdAfterRemovingChosenExpense(deleteExpenseId);
                     return;
                 }
                 else
@@ -325,7 +332,7 @@ void TransferManager::editExpense()
     system("cls");
     int editedExpenseId = 0;
 
-    cout << ">>> INCOME EDITION <<<" << endl << endl;
+    cout << ">>> EXPENSE EDITION <<<" << endl << endl;
     editedExpenseId = passChosenTransferId();
 
     char choice;
@@ -350,17 +357,17 @@ void TransferManager::editExpense()
                     cout << "Date has incorrect format. Please, type again." << endl;
                 }
                 expenses[i].setDate(date);
-                //updateChosenIncomeData(expenses[i]); IncomesFile
+                updateChosenExpenseData(expenses[i]);
                 break;
             case '2':
                 cout << "Type new item: ";
                 expenses[i].setItem(HelpingMethods::changeFirstLetterToUpperRestToLower(HelpingMethods::getTheLine()));
-                //updateChosenIncomeData(expenses[i]); IncomesFile
+                updateChosenExpenseData(expenses[i]);
                 break;
             case '3':
                 cout << "Type new amount: ";
                 expenses[i].setAmount(HelpingMethods::getTheLine());
-                //updateChosenIncomeData(incomes[i]); IncomesFile
+                updateChosenExpenseData(expenses[i]);
                 break;
             case '4':
                 cout << endl << "Returning to the USER MENU" << endl << endl;
@@ -378,6 +385,13 @@ void TransferManager::editExpense()
     system("pause");
 }
 
+void TransferManager::updateChosenExpenseData(Expense expense)
+{
+    expensesFile.editExpenseInFile(expense);
+
+    cout << endl << "Data has been updated." << endl << endl;
+}
+
 //=============================================================
 
 char TransferManager::chooseTheOptionFromUserMenu()
@@ -392,8 +406,8 @@ char TransferManager::chooseTheOptionFromUserMenu()
     cout << "3. List all expenses" << endl; // Show current month balance
     cout << "4. Add expense" << endl; // Show previous month balance
     cout << "5. Show balance of provided period" << endl;
-    cout << "6. Delete Income" << endl;
-    cout << "7. Delete Expense" << endl;
+    cout << "6. Edit Income" << endl;
+    cout << "7. Edit Expense" << endl;
     cout << "---------------------------" << endl;
     cout << "9. Change password" << endl;
     cout << "0. Log Out" << endl;
@@ -429,87 +443,3 @@ int TransferManager::passChosenTransferId()
     return chosenTransferId;
 }
 
-/*
-void TransferManager::editIncome()
-{
-    system("cls");
-    int editIncomeId = 0;
-    //int numerLiniiEdytowanegoAdresata = 0;
-
-    cout << ">>> INCOME EDITION <<<" << endl << endl;
-    editIncomeId = passChosenIncomeId();
-
-    char choice;
-    bool doesIncomeExist = false;
-    string date;
-    for (int i = 0; i < incomes.size(); i++)
-    {
-        if (incomes[i].getId() == editIncomeId)
-        {
-            doesIncomeExist = true;
-            choice = chooseTheOptionFromEditMenu();
-
-            switch (choice)
-            {
-            case '1':
-                while (true)
-                {
-                    cout << "Type new date: ";
-                    date = HelpingMethods::getTheLine();
-                    if (dateOperations.isDateCorrect(date))
-                        break;
-                    cout << "Date has incorrect format. Please, type again." << endl;
-                }
-                incomes[i].setDate(date);
-                //updateChosenIncomeData(incomes[i]); IncomesFile
-                break;
-            case '2':
-                cout << "Type new item: ";
-                incomes[i].setItem(HelpingMethods::changeFirstLetterToUpperRestToLower(HelpingMethods::getTheLine()));
-                //updateChosenIncomeData(incomes[i]); IncomesFile
-                break;
-            case '3':
-                cout << "Type new amount: ";
-                incomes[i].setAmount(HelpingMethods::getTheLine());
-                //updateChosenIncomeData(incomes[i]); IncomesFile
-                break;
-            case '4':
-                cout << endl << "Return to the USER MENU" << endl << endl;
-                break;
-            default:
-                cout << endl << "There is not option you want to choose in that menu! Returning to the USER MENU." << endl << endl;
-                break;
-            }
-        }
-    }
-    if (doesIncomeExist == false)
-    {
-        cout << endl << "There is not income you want to get." << endl << endl;
-    }
-    system("pause");
-}
-
-char TransferManager::chooseTheOptionFromEditMenu()
-{
-    char choice;
-
-    cout << endl << "   >>> EDIT MENU <<<" << endl;
-    cout << "---------------------------" << endl;
-    cout << "Which data you want to update: " << endl;
-    cout << "1 - Date" << endl;
-    cout << "2 - Item" << endl;
-    cout << "3 - Amount" << endl;
-    cout << "4 - Return " << endl;
-    cout << endl << "Your choice: ";
-    choice = HelpingMethods::getTheChar();
-
-    return choice;
-}
-
-void TransferManager::zaktualizujDaneWybranegoAdresata(Adresat adresat)
-{
-    plikZAdresatami.edytujWybranaLinieWPliku(adresat);
-
-    cout << endl << "Dane zostaly zaktualizowane." << endl << endl;
-}
-*/
