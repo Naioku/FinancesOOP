@@ -32,7 +32,8 @@ class TransferManager
     int passChosenExpenseId();
     char chooseTheOptionFromEditMenu();
     int passChosenTransferId();
-    //void updateChosenIncomeData(Income income);
+    void updateChosenIncomeData(Income income);
+    void updateChosenExpenseData(Expense expense);
     //void showFoundIncomesQuantity(int incomesQuantity);
 
 public:
