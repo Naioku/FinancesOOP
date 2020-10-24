@@ -3,6 +3,9 @@
 
 #include <iostream>
 #include <ctime>
+#include <vector>
+
+#include "Income.h"
 
 using namespace std;
 
@@ -20,6 +23,7 @@ class DateOperations
     int calculateAppropriateDaysQuantityInMonth(int date);
     int transcriptDateSplittedByACharacterFromStringToInt(string dateTextLineWithSeparator, char splittingCharacter);
     bool isPreviousMonthZero();
+    void quickSort(vector<Income> &transfers, int left, int right);
 
 public:
     DateOperations()
@@ -31,6 +35,7 @@ public:
     bool isDateBetweenProvidedDates(string dateFromInString, string dateToInString, string dateFromFileInString);
     bool isDateFromFileInProvidedMonth(string dateFromFileInString, string presentOrPreviousMonth);
     string getPresentDateString();
+    vector<Income> sortByDate(vector<Income> transfers);
 
 };
 

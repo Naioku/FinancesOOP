@@ -34,6 +34,10 @@ class TransferManager
     int passChosenTransferId();
     void updateChosenIncomeData(Income income);
     void updateChosenExpenseData(Expense expense);
+    string getDateFromUser();
+    void listIncomesBetweenProvidedDates(string providedDateFrom, string providedDateTo);
+    void listExpensesBetweenProvidedDates(string providedDateFrom, string providedDateTo);
+    void calculateBalance(string providedDateFrom, string providedDateTo);
     //void showFoundIncomesQuantity(int incomesQuantity);
 
 public:
@@ -52,6 +56,8 @@ public:
     void deleteExpense();
     void editIncome();
     void editExpense();
+    void listIncomesAndExpensesAndShowTheBalance();
+
 
 
     // Ideas

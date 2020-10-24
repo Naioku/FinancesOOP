@@ -166,3 +166,35 @@ bool DateOperations::isDateFromFileInProvidedMonth(string dateFromFileInString, 
 
     return false;
 }
+
+void DateOperations::quickSort(vector<Income> &transfers, int left, int right)
+{
+    if(right <= left) return;
+
+	int i = left - 1, j = right + 1;
+	Income pivot = transfers[(left+right)/2];
+
+	while(true)
+	{
+		while(transcriptDateSplittedByACharacterFromStringToInt(pivot.getDate(), '-') > transcriptDateSplittedByACharacterFromStringToInt(transfers[++i].getDate(), '-'));
+		while(transcriptDateSplittedByACharacterFromStringToInt(pivot.getDate(), '-') < transcriptDateSplittedByACharacterFromStringToInt(transfers[--j].getDate(), '-'));
+
+		if( i <= j) swap(transfers[i],transfers[j]);
+		else    	break;
+	}
+
+	if(j > left)
+	quickSort(transfers, left, j);
+	if(i < right)
+	quickSort(transfers, i, right);
+}
+
+vector<Income> DateOperations::sortByDate(vector<Income> transfers)
+{
+    int left = 0;
+    int right = transfers.size() - 1;
+    quickSort(transfers, left, right);
+
+    return transfers;
+
+}

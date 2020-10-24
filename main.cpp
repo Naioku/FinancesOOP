@@ -89,10 +89,10 @@ int main()
             transferManager.addIncome();
             break;
         case '2':
-            transferManager.listAllIncomes();
+            transferManager.listIncomesAndExpensesAndShowTheBalance();
             break;
         case '3':
-            transferManager.listAllExpenses();
+
             break;
         case '4':
             transferManager.addExpense();

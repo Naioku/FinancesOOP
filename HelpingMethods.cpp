@@ -66,3 +66,4 @@ float HelpingMethods::round(float var)
     float value = (int)(var * 100 + 0.5);
     return (float)value/100;
 }
+
