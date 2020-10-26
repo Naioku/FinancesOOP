@@ -5,7 +5,7 @@
 #include <vector>
 #include <fstream>
 
-#include "Income.h"
+#include "Transfer.h"
 #include "HelpingMethods.h"
 #include "DateOperations.h"
 #include "Markup.h"
@@ -22,7 +22,7 @@ class IncomesFile
     string getOneDataOfOneTransferFromFile(string data_type);
     void getLastIncomeIdFromFile();
     void removeAllInformationsAboutOneIncome();
-    void readdIncomeToFile(Income income);
+    void readdIncomeToFile(Transfer income);
     //int pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami);
     //Adresat pobierzDaneAdresata(string daneAdresataOddzielonePionowymiKreskami);
     //string pobierzLiczbe(string tekst, int pozycjaZnaku);
@@ -39,11 +39,11 @@ public:
 
     int getTheLastIncomeId();
     void setTheLastIncomeId(int id);
-    bool addIncomeToFile(Income income);
-    vector<Income> loadIncomesFromFile(int loggedUserId);
+    bool addIncomeToFile(Transfer income);
+    vector<Transfer> loadIncomesFromFile(int loggedUserId);
     bool deleteOneIncomeInFileById(int deletedIncomeId);
     void refreshLastIncomeIdAfterRemovingChosenIncome(int deletedIncomeId);
-    void editIncomeInFile(Income income);
+    void editIncomeInFile(Transfer income);
     //void usunWybranaLinieWPliku(int idUsuwanegoAdresata);
     //void odswiezIdOstatniegoAdresataPoUsunieciuWybranegoAdresata(int idUsuwanegoAdresata);
     //void pobierzZPlikuIdOstatniegoAdresata();

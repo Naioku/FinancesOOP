@@ -10,7 +10,7 @@ void IncomesFile::setTheLastIncomeId(int id)
     lastIncomeId = id;
 }
 
-bool IncomesFile::addIncomeToFile(Income income)
+bool IncomesFile::addIncomeToFile(Transfer income)
 {
     bool fileExists = xml.Load(INCOMES_FILE_NAME);
     if (!fileExists)
@@ -39,10 +39,10 @@ string IncomesFile::getOneDataOfOneTransferFromFile(string data_type)
     return xml.GetChildData();
 }
 
-vector<Income> IncomesFile::loadIncomesFromFile(int loggedUserId)
+vector<Transfer> IncomesFile::loadIncomesFromFile(int loggedUserId)
 {
-    Income income;
-    vector<Income> incomes;
+    Transfer income;
+    vector<Transfer> incomes;
     int oneTransferUserId;
 
     xml.Load(INCOMES_FILE_NAME);
@@ -115,7 +115,7 @@ void IncomesFile::getLastIncomeIdFromFile()
     }
 }
 
-void IncomesFile::editIncomeInFile(Income income)
+void IncomesFile::editIncomeInFile(Transfer income)
 {
     int searchedIncomeId = income.getId();
     int oneTransferId;
@@ -147,7 +147,7 @@ void IncomesFile::removeAllInformationsAboutOneIncome()
     }
 }
 
-void IncomesFile::readdIncomeToFile(Income income)
+void IncomesFile::readdIncomeToFile(Transfer income)
 {
     xml.IntoElem();
     xml.AddElem("Id", income.getId());

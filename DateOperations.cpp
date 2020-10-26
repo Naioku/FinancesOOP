@@ -17,6 +17,48 @@ string DateOperations::getPresentDateString()
     return presentDateString;
 }
 
+string DateOperations::getTheDateOfTheFirstDayOfPresentMonthInString()
+{
+    int firstDay = presentDateInt / 100 * 100 + 1;
+
+    return transcriptDateFromIndToStringSplittedByACharacter(firstDay, '-');
+}
+
+string DateOperations::getTheDateOfTheLastDayOfPresentMonthInString()
+{
+    int lastDay = presentDateInt / 100 * 100 + calculateAppropriateDaysQuantityInMonth(presentDateInt);
+
+    return transcriptDateFromIndToStringSplittedByACharacter(lastDay, '-');
+}
+
+string DateOperations::getTheDateOfTheFirstDayOfPreviousMonthInString()
+{
+    int firstDay = (presentDateInt / 100 - 1)* 100 + 1;
+
+    return transcriptDateFromIndToStringSplittedByACharacter(firstDay, '-');
+}
+
+string DateOperations::getTheDateOfTheLastDayOfPreviousMonthInString()
+{
+    int lastDay = (presentDateInt / 100 - 1) * 100 + calculateAppropriateDaysQuantityInMonth(presentDateInt);
+
+    return transcriptDateFromIndToStringSplittedByACharacter(lastDay, '-');
+}
+
+string DateOperations::transcriptDateFromIndToStringSplittedByACharacter(int dateInt, char splittingCharacter)
+{
+    string year = to_string(dateInt/10000);
+    string month = to_string((dateInt/100) % 100);
+    string monthday = "";
+    int monthdayInt = dateInt % 100;
+    if ((1 <= monthdayInt) && (monthdayInt <= 9)) monthday += "0";
+    monthday += to_string(monthdayInt);
+
+    string dateString = year + splittingCharacter + month + splittingCharacter + monthday;
+
+    return dateString;
+}
+
 void DateOperations::setPresentDateInt()
 {
     presentDateInt = transcriptDateSplittedByACharacterFromStringToInt(presentDateString, '-');
@@ -167,12 +209,13 @@ bool DateOperations::isDateFromFileInProvidedMonth(string dateFromFileInString, 
     return false;
 }
 
-void DateOperations::quickSort(vector<Income> &transfers, int left, int right)
+void DateOperations::quickSort(vector<Transfer> &transfers, int left, int right)
 {
+    cout << "Start of quickSort" << endl;
     if(right <= left) return;
 
 	int i = left - 1, j = right + 1;
-	Income pivot = transfers[(left+right)/2];
+	Transfer pivot = transfers[(left+right)/2];
 
 	while(true)
 	{
@@ -187,13 +230,16 @@ void DateOperations::quickSort(vector<Income> &transfers, int left, int right)
 	quickSort(transfers, left, j);
 	if(i < right)
 	quickSort(transfers, i, right);
+	cout << "End of quickSort" << endl;
 }
 
-vector<Income> DateOperations::sortByDate(vector<Income> transfers)
+vector<Transfer> DateOperations::sortByDate(vector<Transfer> transfers)
 {
+    cout << "Start of sortByDate" << endl;
     int left = 0;
     int right = transfers.size() - 1;
     quickSort(transfers, left, right);
+    cout << "End of sortByDate" << endl;
 
     return transfers;
 

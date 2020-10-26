@@ -17,7 +17,7 @@ int dateOperations_main()
 {
     DateOperations dateOperations;
 
-    cout << dateOperations.isDateCorrect("2000-03-");
+    cout << dateOperations.getPresentDateString();
     return 0;
 }
 
@@ -89,21 +89,20 @@ int main()
             transferManager.addIncome();
             break;
         case '2':
-            transferManager.listIncomesAndExpensesAndShowTheBalance();
-            break;
-        case '3':
-
-            break;
-        case '4':
             transferManager.addExpense();
             break;
+        case '3':
+            transferManager.listIncomesAndExpensesFromPresentMonthAndShowTheBalance();
+            break;
+        case '4':
+            transferManager.listIncomesAndExpensesFromPreviousMonthAndShowTheBalance();
+            break;
+        case '5':
+            transferManager.listIncomesAndExpensesBetweenProvidedDateAndShowTheBalance();
+            break;
         case '6':
-            transferManager.editIncome();
+            transferManager.editOrDeleteTransfer();
             break;
-        case '7':
-            transferManager.editExpense();
-            break;
-
         case '0':
             exit(0);
             break;

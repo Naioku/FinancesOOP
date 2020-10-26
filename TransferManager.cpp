@@ -4,7 +4,7 @@
 
 void TransferManager::addIncome()
 {
-    Income income;
+    Transfer income;
 
     system("cls");
     cout << " >>> ADDING NEW INCOME <<<" << endl << endl;
@@ -20,15 +20,36 @@ void TransferManager::addIncome()
     system("pause");
 }
 
-Income TransferManager::passNewIncomeData()
+Transfer TransferManager::passNewIncomeData()
 {
-    Income income;
+    Transfer income;
 
     income.setId(incomesFile.getTheLastIncomeId() + 1);
     incomesFile.setTheLastIncomeId(incomesFile.getTheLastIncomeId() + 1);
     income.setUserId(LOGGED_USER_ID);
 
-    income.setDate(getDateFromUser());
+    while(true)
+    {
+        cout << "Do you want to add income with today (enter 'today') date or pass it manually (enter 'manual')?" << endl;
+        string choice = HelpingMethods::getTheLine();
+        if (choice == "today")
+        {
+            income.setDate(dateOperations.getPresentDateString());
+            break;
+        }
+        else if (choice == "manual")
+        {
+            income.setDate(getDateFromUser());
+            break;
+        }
+        else
+        {
+            cout << "Please choose the right option" << endl;
+            system("pause");
+            cout << endl;
+        }
+
+    }
 
     cout << "Write down item: ";
     income.setItem(HelpingMethods::getTheLine());
@@ -40,7 +61,7 @@ Income TransferManager::passNewIncomeData()
     return income;
 }
 
-void TransferManager::listIncomeData(Income income)
+void TransferManager::listIncomeData(Transfer income)
 {
     cout << endl;
     cout << endl << "Id:                 " << income.getId() << endl;
@@ -57,7 +78,7 @@ void TransferManager::listAllIncomes()
     {
         cout << "             >>> INCOME(S) <<<" << endl;
         cout << "-----------------------------------------------" << endl;
-        for (vector <Income> :: iterator itr = incomes.begin(); itr != incomes.end(); itr++)
+        for (vector <Transfer> :: iterator itr = incomes.begin(); itr != incomes.end(); itr++)
         {
             listIncomeData(*itr);
         }
@@ -76,7 +97,7 @@ void TransferManager::listIncomesBetweenProvidedDates(string providedDateFrom, s
     {
         cout << endl << "             >>> INCOME(S) <<<" << endl;
         cout << "-----------------------------------------------" << endl;
-        for (vector <Income> :: iterator itr = incomes.begin(); itr != incomes.end(); itr++)
+        for (vector <Transfer> :: iterator itr = incomes.begin(); itr != incomes.end(); itr++)
         {
             if (dateOperations.isDateBetweenProvidedDates(providedDateFrom, providedDateTo, itr -> getDate()))
             {
@@ -102,7 +123,7 @@ void TransferManager::deleteIncome()
     char character;
     bool doesIncomeExist = false;
 
-    for (vector <Income>::iterator itr = incomes.begin(); itr != incomes.end(); itr++)
+    for (vector <Transfer>::iterator itr = incomes.begin(); itr != incomes.end(); itr++)
     {
         if (itr -> getId() == deletedIncomeId)
         {
@@ -176,7 +197,7 @@ void TransferManager::editIncome()
                 incomes[i].setAmount(HelpingMethods::getTheLine());
                 updateChosenIncomeData(incomes[i]);
                 break;
-            case '4':
+            case '0':
                 cout << endl << "Returning to the USER MENU" << endl << endl;
                 break;
             default:
@@ -192,7 +213,7 @@ void TransferManager::editIncome()
     system("pause");
 }
 
-void TransferManager::updateChosenIncomeData(Income income)
+void TransferManager::updateChosenIncomeData(Transfer income)
 {
     incomesFile.editIncomeInFile(income);
 
@@ -203,10 +224,10 @@ void TransferManager::updateChosenIncomeData(Income income)
 
 void TransferManager::addExpense()
 {
-    Expense expense;
+    Transfer expense;
 
     system("cls");
-    cout << " >>> ADDING NEW INCOME <<<" << endl << endl;
+    cout << " >>> ADDING NEW EXPENSE <<<" << endl << endl;
     expense = passNewExpenseData();
 
     expenses.push_back(expense);
@@ -219,15 +240,35 @@ void TransferManager::addExpense()
     system("pause");
 }
 
-Expense TransferManager::passNewExpenseData()
+Transfer TransferManager::passNewExpenseData()
 {
-    Expense expense;
+    Transfer expense;
 
     expense.setId(expensesFile.getTheLastExpenseId() + 1);
     expensesFile.setTheLastExpenseId(expensesFile.getTheLastExpenseId() + 1);
     expense.setUserId(LOGGED_USER_ID);
+    while(true)
+    {
+        cout << "Do you want to add expense with today (enter 'today') date or pass it manually (enter 'manual')?" << endl;
+        string choice = HelpingMethods::getTheLine();
+        if (choice == "today")
+        {
+            expense.setDate(dateOperations.getPresentDateString());
+            break;
+        }
+        else if (choice == "manual")
+        {
+            expense.setDate(getDateFromUser());
+            break;
+        }
+        else
+        {
+            cout << "Please choose the right option" << endl;
+            system("pause");
+        }
 
-    expense.setDate(getDateFromUser());
+    }
+
 
     cout << "Write down item: ";
     expense.setItem(HelpingMethods::getTheLine());
@@ -239,7 +280,7 @@ Expense TransferManager::passNewExpenseData()
     return expense;
 }
 
-void TransferManager::listExpenseData(Expense expense)
+void TransferManager::listExpenseData(Transfer expense)
 {
     cout << endl;
     cout << endl << "Id:                 " << expense.getId() << endl;
@@ -256,7 +297,7 @@ void TransferManager::listAllExpenses()
     {
         cout << "             >>> EXPENSE(S) <<<" << endl;
         cout << "-----------------------------------------------" << endl;
-        for (vector <Expense> :: iterator itr = expenses.begin(); itr != expenses.end(); itr++)
+        for (vector <Transfer> :: iterator itr = expenses.begin(); itr != expenses.end(); itr++)
         {
             listExpenseData(*itr);
         }
@@ -271,11 +312,12 @@ void TransferManager::listAllExpenses()
 
 void TransferManager::listExpensesBetweenProvidedDates(string providedDateFrom, string providedDateTo)
 {
+    cout << "Start of listExpensesBetweenProvidedDates" << endl;
     if (!expenses.empty())
     {
         cout << endl << "             >>> EXPENSE(S) <<<" << endl;
         cout << "-----------------------------------------------" << endl;
-        for (vector <Expense> :: iterator itr = expenses.begin(); itr != expenses.end(); itr++)
+        for (vector <Transfer> :: iterator itr = expenses.begin(); itr != expenses.end(); itr++)
         {
             if (dateOperations.isDateBetweenProvidedDates(providedDateFrom, providedDateTo, itr -> getDate()))
             {
@@ -288,6 +330,8 @@ void TransferManager::listExpensesBetweenProvidedDates(string providedDateFrom, 
     {
         cout << endl << "There is not any expense between provided dates." << endl << endl;
     }
+
+    cout << "End of listExpensesBetweenProvidedDates" << endl;
 }
 
 void TransferManager::deleteExpense()
@@ -301,7 +345,7 @@ void TransferManager::deleteExpense()
     char character;
     bool doesExpenseExist = false;
 
-    for (vector <Expense>::iterator itr = expenses.begin(); itr != expenses.end(); itr++)
+    for (vector <Transfer>::iterator itr = expenses.begin(); itr != expenses.end(); itr++)
     {
         if (itr -> getId() == deleteExpenseId)
         {
@@ -335,7 +379,7 @@ void TransferManager::deleteExpense()
     }
     if (doesExpenseExist == false)
     {
-        cout << endl << "There is no income like this." << endl << endl;
+        cout << endl << "There is no expense like this." << endl << endl;
         system("pause");
     }
     return;
@@ -375,7 +419,7 @@ void TransferManager::editExpense()
                 expenses[i].setAmount(HelpingMethods::getTheLine());
                 updateChosenExpenseData(expenses[i]);
                 break;
-            case '4':
+            case '0':
                 cout << endl << "Returning to the USER MENU" << endl << endl;
                 break;
             default:
@@ -391,7 +435,7 @@ void TransferManager::editExpense()
     system("pause");
 }
 
-void TransferManager::updateChosenExpenseData(Expense expense)
+void TransferManager::updateChosenExpenseData(Transfer expense)
 {
     expensesFile.editExpenseInFile(expense);
 
@@ -399,6 +443,32 @@ void TransferManager::updateChosenExpenseData(Expense expense)
 }
 
 //=============================================================
+
+void TransferManager::editOrDeleteTransfer()
+{
+    char choice = chooseTheOptionEditDeleteMenu();
+    switch (choice)
+    {
+    case '1':
+        editIncome();
+        break;
+    case '2':
+        editExpense();
+        break;
+    case '3':
+        deleteIncome();
+        break;
+    case '4':
+        deleteExpense();
+        break;
+    case '0':
+        cout << endl << "Returning to the USER MENU" << endl << endl;
+        break;
+    default:
+        cout << endl << "There is not option you want to choose in that menu! Returning to the USER MENU." << endl << endl;
+        break;
+    }
+}
 
 string TransferManager::getDateFromUser()
 {
@@ -409,7 +479,7 @@ string TransferManager::getDateFromUser()
         date = HelpingMethods::getTheLine();
         if (dateOperations.isDateCorrect(date))
             break;
-        cout << "Date has incorrect format. Please, type again." << endl;
+        cout << "Date has incorrect format. Please, type again." << endl << endl;
     }
     return date;
 }
@@ -421,17 +491,36 @@ char TransferManager::chooseTheOptionFromUserMenu()
     system("cls");
     cout << " >>> USER MENU <<<" << endl;
     cout << "---------------------------" << endl;
-    cout << "1. Add Income" << endl;
-    cout << "2. List incomes between provided dates" << endl; // Add Expense
-    cout << "3. List expenses between provided dates" << endl; // Show current month balance
-    cout << "4. Add expense" << endl; // Show previous month balance
-    cout << "5. Show balance of provided period" << endl;
-    cout << "6. Edit Income" << endl;
-    cout << "7. Edit Expense" << endl;
+    cout << "1. Add income" << endl;
+    cout << "2. Add expense" << endl; // Add Expense
+    cout << "3. Present month balance" << endl; // Show current month balance
+    cout << "4. Previous month balance" << endl; // Show previous month balance
+    cout << "5. Balance of provided period" << endl;
+    cout << "6. Editing & Deleting" << endl;
     cout << "---------------------------" << endl;
     cout << "9. Change password" << endl;
     cout << "0. Log Out" << endl;
     cout << "---------------------------" << endl;
+    cout << "Your Choice: ";
+    choice = HelpingMethods::getTheChar();
+
+    return choice;
+}
+
+char TransferManager::chooseTheOptionEditDeleteMenu()
+{
+    char choice;
+
+    system("cls");
+    cout << " >>> EDIT & DELETE MENU <<<" << endl;
+    cout << "------------------------------" << endl;
+    cout << "1. Edit income" << endl;
+    cout << "2. Edit expense" << endl;
+    cout << "3. Delete income" << endl;
+    cout << "4. Delete expense" << endl;
+    cout << "------------------------------" << endl;
+    cout << "0. Return" << endl;
+    cout << "------------------------------" << endl;
     cout << "Your Choice: ";
     choice = HelpingMethods::getTheChar();
 
@@ -448,7 +537,8 @@ char TransferManager::chooseTheOptionFromEditMenu()
     cout << "1 - Date" << endl;
     cout << "2 - Item" << endl;
     cout << "3 - Amount" << endl;
-    cout << "4 - Return " << endl;
+    cout << "---------------------------" << endl;
+    cout << "0 - Return " << endl;
     cout << endl << "Your choice: ";
     choice = HelpingMethods::getTheChar();
 
@@ -463,37 +553,65 @@ int TransferManager::passChosenTransferId()
     return chosenTransferId;
 }
 
-void TransferManager::listIncomesAndExpensesAndShowTheBalance()
+void TransferManager::listIncomesAndExpensesBetweenProvidedDateAndShowTheBalance()
 {
     system("cls");
 
     cout << "Type date from." << endl;
-    string providedDateFrom = "";
-    providedDateFrom = getDateFromUser();
+    string providedDateFrom = getDateFromUser();
 
     cout << "Type date to." << endl;
-    string providedDateTo = "";
-    providedDateTo = getDateFromUser();
+    string providedDateTo = getDateFromUser();
 
     incomes = dateOperations.sortByDate(incomes);
     listIncomesBetweenProvidedDates(providedDateFrom, providedDateTo);
-    // sortByDate(expends);
+    expenses = dateOperations.sortByDate(expenses);
     listExpensesBetweenProvidedDates(providedDateFrom, providedDateTo);
     calculateBalance(providedDateFrom, providedDateTo);
+    system("pause");
+}
+
+void TransferManager::listIncomesAndExpensesFromPresentMonthAndShowTheBalance()
+{
+    system("cls");
+
+    string dateFrom = dateOperations.getTheDateOfTheFirstDayOfPresentMonthInString();
+    string dateTo = dateOperations.getTheDateOfTheLastDayOfPresentMonthInString();
+
+    incomes = dateOperations.sortByDate(incomes);
+    listIncomesBetweenProvidedDates(dateFrom, dateTo);
+    expenses = dateOperations.sortByDate(expenses);
+    listExpensesBetweenProvidedDates(dateFrom, dateTo);
+    calculateBalance(dateFrom, dateTo);
+    system("pause");
+}
+
+void TransferManager::listIncomesAndExpensesFromPreviousMonthAndShowTheBalance()
+{
+    system("cls");
+
+    string dateFrom = dateOperations.getTheDateOfTheFirstDayOfPreviousMonthInString();
+    string dateTo = dateOperations.getTheDateOfTheLastDayOfPreviousMonthInString();
+
+    incomes = dateOperations.sortByDate(incomes);
+    listIncomesBetweenProvidedDates(dateFrom, dateTo);
+    expenses = dateOperations.sortByDate(expenses);
+    listExpensesBetweenProvidedDates(dateFrom, dateTo);
+    calculateBalance(dateFrom, dateTo);
     system("pause");
 }
 
 void TransferManager::calculateBalance(string providedDateFrom, string providedDateTo)
 {
     float incomesValue = 0;
-    for (vector <Income>::iterator itr = incomes.begin(); itr != incomes.end(); itr++)
+    for (vector <Transfer>::iterator itr = incomes.begin(); itr != incomes.end(); itr++)
     {
         if (dateOperations.isDateBetweenProvidedDates(providedDateFrom, providedDateTo, itr -> getDate()))
         incomesValue += atof((itr -> getAmount()).c_str());
     }
 
     float expensesValue = 0;
-    for (vector <Expense>::iterator itr = expenses.begin(); itr != expenses.end(); itr++)
+    for (vector <Transfer>::iterator itr = expenses.begin(); itr != expenses.end(); itr++)
     {
         if (dateOperations.isDateBetweenProvidedDates(providedDateFrom, providedDateTo, itr -> getDate()))
         expensesValue += atof((itr -> getAmount()).c_str());
