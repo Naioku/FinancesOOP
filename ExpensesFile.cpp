@@ -25,7 +25,7 @@ bool ExpensesFile::addExpenseToFile(Transfer expense)
     xml.IntoElem();
     xml.AddElem("Id", expense.getId());
     xml.AddElem("UserId", expense.getUserId());
-    xml.AddElem("Date", expense.getDate());
+    xml.AddElem("Date", dateOperations.transcriptDateFromIntToStringSplittedByACharacter(expense.getDate(), '-'));
     xml.AddElem("Item", expense.getItem());
     xml.AddElem("Amount", expense.getAmount());
 
@@ -58,7 +58,7 @@ vector<Transfer> ExpensesFile::loadExpensesFromFile(int loggedUserId)
             lastExpenseId = atoi(getOneDataOfOneTransferFromFile("Id").c_str());
             expense.setId(lastExpenseId);
             expense.setUserId(oneTransferUserId);
-            expense.setDate(getOneDataOfOneTransferFromFile("Date"));
+            expense.setDate(dateOperations.transcriptDateSplittedByACharacterFromStringToInt(getOneDataOfOneTransferFromFile("Date"), '-'));
             expense.setItem(getOneDataOfOneTransferFromFile("Item"));
             expense.setAmount(getOneDataOfOneTransferFromFile("Amount"));
 
@@ -151,7 +151,7 @@ void ExpensesFile::readdExpenseToFile(Transfer expense)
     xml.IntoElem();
     xml.AddElem("Id", expense.getId());
     xml.AddElem("UserId", expense.getUserId());
-    xml.AddElem("Date", expense.getDate());
+    xml.AddElem("Date", dateOperations.transcriptDateFromIntToStringSplittedByACharacter(expense.getDate(), '-'));
     xml.AddElem("Item", expense.getItem());
     xml.AddElem("Amount", expense.getAmount());
 }

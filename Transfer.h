@@ -9,20 +9,20 @@ class Transfer
 {
     int id;
     int userId;
-    string date;
+    int date;
     string item;
     string amount;
 
 public:
     void setId(int newId);
     void setUserId(int newUserId);
-    void setDate(string newDate);
+    void setDate(int newDate);
     void setItem(string newItem);
     void setAmount(string newAmount);
 
     int getId();
     int getUserId();
-    string getDate();
+    int getDate();
     string getItem();
     string getAmount();
 };

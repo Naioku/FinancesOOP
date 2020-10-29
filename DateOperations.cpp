@@ -17,35 +17,32 @@ string DateOperations::getPresentDateString()
     return presentDateString;
 }
 
-string DateOperations::getTheDateOfTheFirstDayOfPresentMonthInString()
+int DateOperations::getPresentDateInt()
 {
-    int firstDay = presentDateInt / 100 * 100 + 1;
-
-    return transcriptDateFromIndToStringSplittedByACharacter(firstDay, '-');
+    return presentDateInt;
 }
 
-string DateOperations::getTheDateOfTheLastDayOfPresentMonthInString()
+int DateOperations::getTheDateOfTheFirstDayOfPresentMonthInString()
 {
-    int lastDay = presentDateInt / 100 * 100 + calculateAppropriateDaysQuantityInMonth(presentDateInt);
-
-    return transcriptDateFromIndToStringSplittedByACharacter(lastDay, '-');
+    return (presentDateInt / 100 * 100 + 1);
 }
 
-string DateOperations::getTheDateOfTheFirstDayOfPreviousMonthInString()
+int DateOperations::getTheDateOfTheLastDayOfPresentMonthInString()
 {
-    int firstDay = (presentDateInt / 100 - 1)* 100 + 1;
-
-    return transcriptDateFromIndToStringSplittedByACharacter(firstDay, '-');
+    return (presentDateInt / 100 * 100 + calculateAppropriateDaysQuantityInMonth(presentDateInt));
 }
 
-string DateOperations::getTheDateOfTheLastDayOfPreviousMonthInString()
+int DateOperations::getTheDateOfTheFirstDayOfPreviousMonthInString()
 {
-    int lastDay = (presentDateInt / 100 - 1) * 100 + calculateAppropriateDaysQuantityInMonth(presentDateInt);
-
-    return transcriptDateFromIndToStringSplittedByACharacter(lastDay, '-');
+    return ((presentDateInt / 100 - 1)* 100 + 1);
 }
 
-string DateOperations::transcriptDateFromIndToStringSplittedByACharacter(int dateInt, char splittingCharacter)
+int DateOperations::getTheDateOfTheLastDayOfPreviousMonthInString()
+{
+    return ((presentDateInt / 100 - 1) * 100 + calculateAppropriateDaysQuantityInMonth(presentDateInt));
+}
+
+string DateOperations::transcriptDateFromIntToStringSplittedByACharacter(int dateInt, char splittingCharacter)
 {
     string year = to_string(dateInt/10000);
     string month = to_string((dateInt/100) % 100);
@@ -142,11 +139,8 @@ int DateOperations::transcriptDateSplittedByACharacterFromStringToInt(string dat
     return dateInt;
 }
 
-bool DateOperations::isDateBetweenProvidedDates(string dateFromInString, string dateToInString, string dateFromFileInString)
+bool DateOperations::isDateBetweenProvidedDates(int dateFromInInt, int dateToInInt, int dateFromFileInInt)
 {
-    int dateFromInInt = transcriptDateSplittedByACharacterFromStringToInt(dateFromInString, '-');
-    int dateToInInt = transcriptDateSplittedByACharacterFromStringToInt(dateToInString, '-');
-    int dateFromFileInInt = transcriptDateSplittedByACharacterFromStringToInt(dateFromFileInString, '-');
 
     if ((dateFromInInt <= dateFromFileInInt) && (dateFromFileInInt <= dateToInInt))
         return true;
@@ -154,9 +148,8 @@ bool DateOperations::isDateBetweenProvidedDates(string dateFromInString, string 
     return false;
 }
 
-bool DateOperations::isDateCorrect(string dateInString)
+bool DateOperations::isDateCorrect(int dateInInt)
 {
-    int dateInInt = transcriptDateSplittedByACharacterFromStringToInt(dateInString, '-');
     int day = getDayFromDateInt(dateInInt);
     int month = getMonthFromDateInt(dateInInt);
 
@@ -173,68 +166,32 @@ bool DateOperations::isDateCorrect(string dateInString)
         return false;
 }
 
-bool DateOperations::isPreviousMonthZero()
+vector<Transfer> DateOperations::quickSort(vector<Transfer> transfers, int left, int right)
 {
-    if((getMonthFromDateInt(presentDateInt) - 1) % 100 == 0)
-        return true;
-    else
-        return false;
-}
-
-bool DateOperations::isDateFromFileInProvidedMonth(string dateFromFileInString, string presentOrPreviousMonth = "present")
-{
-    int dateFromInInt;
-    int dateToInInt;
-    int dateFromFileInInt = transcriptDateSplittedByACharacterFromStringToInt(dateFromFileInString, '-');
-    if (presentOrPreviousMonth == "present")
-    {
-        dateFromInInt = presentDateInt/100 * 100 + 1;
-        dateToInInt = presentDateInt/100 * 100 + calculateAppropriateDaysQuantityInMonth(presentDateInt);
-    }
-    else
-    {
-        if(isPreviousMonthZero())
-        {
-            dateFromInInt = (presentDateInt/100 - 89) * 100 + 1;
-            dateToInInt = (presentDateInt/100 - 89) * 100 + calculateAppropriateDaysQuantityInMonth(presentDateInt);
-        }
-        else
-            dateFromInInt = (presentDateInt/100 - 1) * 100 + 1;
-            dateToInInt = (presentDateInt/100 - 1) * 100 + calculateAppropriateDaysQuantityInMonth(presentDateInt);
-    }
-
-    if ((dateFromInInt <= dateFromFileInInt) && (dateFromFileInInt <= dateToInInt))
-        return true;
-
-    return false;
-}
-
-void DateOperations::quickSort(vector<Transfer> transfers, int left, int right)
-{
-    if(right <= left) return;
+    if(right <= left) return transfers;
 
 	int i = left - 1, j = right + 1;
 	Transfer pivot = transfers[(left+right)/2];
 
 	while(true)
 	{
-		while(transcriptDateSplittedByACharacterFromStringToInt(pivot.getDate(), '-') > transcriptDateSplittedByACharacterFromStringToInt(transfers[++i].getDate(), '-'));
-		while(transcriptDateSplittedByACharacterFromStringToInt(pivot.getDate(), '-') < transcriptDateSplittedByACharacterFromStringToInt(transfers[--j].getDate(), '-'));
+		while(pivot.getDate() > transfers[++i].getDate());
+		while(pivot.getDate() < transfers[--j].getDate());
 
 		if( i <= j) swap(transfers[i],transfers[j]);
 		else    	break;
 	}
 
-	if(j > left) quickSort(transfers, left, j);
-	if(i < right) quickSort(transfers, i, right);
+	if(j > left) return quickSort(transfers, left, j);
+	if(i < right) return quickSort(transfers, i, right);
+	return transfers;
 }
 
 vector<Transfer> DateOperations::sortByDate(vector<Transfer> transfers)
 {
     int left = 0;
     int right = transfers.size() - 1;
-    quickSort(transfers, left, right);
 
-    return transfers;
+    return quickSort(transfers, left, right);
 
 }
