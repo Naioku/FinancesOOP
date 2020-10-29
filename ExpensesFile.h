@@ -5,7 +5,7 @@
 #include <vector>
 #include <fstream>
 
-#include "Expense.h"
+#include "Transfer.h"
 #include "HelpingMethods.h"
 #include "DateOperations.h"
 #include "Markup.h"
@@ -22,7 +22,7 @@ class ExpensesFile
     string getOneDataOfOneTransferFromFile(string data_type);
     void getLastExpenseIdFromFile();
     void removeAllInformationsAboutOneExpense();
-    void readdExpenseToFile(Expense expense);
+    void readdExpenseToFile(Transfer expense);
     //int pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami);
     //Adresat pobierzDaneAdresata(string daneAdresataOddzielonePionowymiKreskami);
     //string pobierzLiczbe(string tekst, int pozycjaZnaku);
@@ -39,11 +39,11 @@ public:
 
     int getTheLastExpenseId();
     void setTheLastExpenseId(int id);
-    bool addExpenseToFile(Expense expense);
-    vector<Expense> loadExpensesFromFile(int loggedUserId);
+    bool addExpenseToFile(Transfer expense);
+    vector<Transfer> loadExpensesFromFile(int loggedUserId);
     bool deleteOneExpenseInFileById(int deletedExpenseId);
     void refreshLastExpenseIdAfterRemovingChosenExpense(int deletedExpenseId);
-    void editExpenseInFile(Expense expense);
+    void editExpenseInFile(Transfer expense);
     //void usunWybranaLinieWPliku(int idUsuwanegoAdresata);
     //void odswiezIdOstatniegoAdresataPoUsunieciuWybranegoAdresata(int idUsuwanegoAdresata);
     //void pobierzZPlikuIdOstatniegoAdresata();

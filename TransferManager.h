@@ -5,8 +5,7 @@
 #include <iostream>
 #include <vector>
 
-#include "Income.h"
-#include "Expense.h"
+#include "Transfer.h"
 #include "HelpingMethods.h"
 #include "DateOperations.h"
 #include "IncomesFile.h"
@@ -17,23 +16,28 @@ using namespace std;
 class TransferManager
 {
     const int LOGGED_USER_ID;
-    vector <Income> incomes;
+    vector <Transfer> incomes;
     IncomesFile incomesFile;
-    vector <Expense> expenses;
+    vector <Transfer> expenses;
     ExpensesFile expensesFile;
 
     DateOperations dateOperations;
 
-    Income passNewIncomeData();
-    Expense passNewExpenseData();
-    void listIncomeData(Income income);
-    void listExpenseData(Expense expense);
+    Transfer passNewIncomeData();
+    Transfer passNewExpenseData();
+    void listIncomeData(Transfer income);
+    void listExpenseData(Transfer expense);
     int passChosenIncomeId();
     int passChosenExpenseId();
     char chooseTheOptionFromEditMenu();
     int passChosenTransferId();
-    void updateChosenIncomeData(Income income);
-    void updateChosenExpenseData(Expense expense);
+    void updateChosenIncomeData(Transfer income);
+    void updateChosenExpenseData(Transfer expense);
+    string getDateFromUser();
+    void listIncomesBetweenProvidedDates(string providedDateFrom, string providedDateTo);
+    void listExpensesBetweenProvidedDates(string providedDateFrom, string providedDateTo);
+    void calculateBalance(string providedDateFrom, string providedDateTo);
+    char chooseTheOptionEditDeleteMenu();
     //void showFoundIncomesQuantity(int incomesQuantity);
 
 public:
@@ -52,6 +56,11 @@ public:
     void deleteExpense();
     void editIncome();
     void editExpense();
+    void listIncomesAndExpensesBetweenProvidedDateAndShowTheBalance();
+    void listIncomesAndExpensesFromPresentMonthAndShowTheBalance();
+    void listIncomesAndExpensesFromPreviousMonthAndShowTheBalance();
+    void editOrDeleteTransfer();
+
 
 
     // Ideas

@@ -10,7 +10,7 @@ void ExpensesFile::setTheLastExpenseId(int id)
     lastExpenseId = id;
 }
 
-bool ExpensesFile::addExpenseToFile(Expense expense)
+bool ExpensesFile::addExpenseToFile(Transfer expense)
 {
     bool fileExists = xml.Load(EXPENSES_FILE_NAME);
     if (!fileExists)
@@ -39,10 +39,10 @@ string ExpensesFile::getOneDataOfOneTransferFromFile(string data_type)
     return xml.GetChildData();
 }
 
-vector<Expense> ExpensesFile::loadExpensesFromFile(int loggedUserId)
+vector<Transfer> ExpensesFile::loadExpensesFromFile(int loggedUserId)
 {
-    Expense expense;
-    vector<Expense> expenses;
+    Transfer expense;
+    vector<Transfer> expenses;
     int oneTransferUserId;
 
     xml.Load(EXPENSES_FILE_NAME);
@@ -114,7 +114,7 @@ void ExpensesFile::getLastExpenseIdFromFile()
     }
 }
 
-void ExpensesFile::editExpenseInFile(Expense expense)
+void ExpensesFile::editExpenseInFile(Transfer expense)
 {
     int searchedExpenseId = expense.getId();
     int oneTransferId;
@@ -146,7 +146,7 @@ void ExpensesFile::removeAllInformationsAboutOneExpense()
     }
 }
 
-void ExpensesFile::readdExpenseToFile(Expense expense)
+void ExpensesFile::readdExpenseToFile(Transfer expense)
 {
     xml.IntoElem();
     xml.AddElem("Id", expense.getId());

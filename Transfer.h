@@ -1,11 +1,11 @@
-#ifndef INCOME_H
-#define INCOME_H
+#ifndef TRANSFER_H
+#define TRANSFER_H
 
 #include <iostream>
 
 using namespace std;
 
-class Income
+class Transfer
 {
     int id;
     int userId;
@@ -27,4 +27,4 @@ public:
     string getAmount();
 };
 
-#endif // INCOME_H
+#endif // TRANSFER_H
