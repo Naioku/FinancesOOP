@@ -21,10 +21,7 @@ class DateOperations
     int getMonthFromDateInt(int date);
     int getYearFromDateInt(int date);
     int calculateAppropriateDaysQuantityInMonth(int date);
-    int transcriptDateSplittedByACharacterFromStringToInt(string dateTextLineWithSeparator, char splittingCharacter);
-    string transcriptDateFromIndToStringSplittedByACharacter(int dateInt, char splittingCharacter);
-    bool isPreviousMonthZero();
-    void quickSort(vector<Transfer> transfers, int left, int right);
+    vector<Transfer> quickSort(vector<Transfer> transfers, int left, int right);
 
 public:
     DateOperations()
@@ -32,15 +29,18 @@ public:
         setPresentDateString();
         setPresentDateInt();
     };
-    bool isDateCorrect(string date);
-    bool isDateBetweenProvidedDates(string dateFromInString, string dateToInString, string dateFromFileInString);
-    bool isDateFromFileInProvidedMonth(string dateFromFileInString, string presentOrPreviousMonth);
+    bool isDateCorrect(int date);
+    bool isDateBetweenProvidedDates(int dateFromInString, int dateToInString, int dateFromFileInString);
     string getPresentDateString();
-    string getTheDateOfTheFirstDayOfPresentMonthInString();
-    string getTheDateOfTheLastDayOfPresentMonthInString();
-    string getTheDateOfTheFirstDayOfPreviousMonthInString();
-    string getTheDateOfTheLastDayOfPreviousMonthInString();
+    int getPresentDateInt();
+    int getTheDateOfTheFirstDayOfPresentMonthInString();
+    int getTheDateOfTheLastDayOfPresentMonthInString();
+    int getTheDateOfTheFirstDayOfPreviousMonthInString();
+    int getTheDateOfTheLastDayOfPreviousMonthInString();
     vector<Transfer> sortByDate(vector<Transfer> transfers);
+
+    int transcriptDateSplittedByACharacterFromStringToInt(string dateTextLineWithSeparator, char splittingCharacter);
+    string transcriptDateFromIntToStringSplittedByACharacter(int dateInt, char splittingCharacter);
 
 };
 

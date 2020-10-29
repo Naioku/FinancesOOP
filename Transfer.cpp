@@ -10,7 +10,7 @@ void Transfer::setUserId(int newUserId)
     userId = newUserId;
 }
 
-void Transfer::setDate(string newDate)
+void Transfer::setDate(int newDate)
 {
     date = newDate;
 }
@@ -36,7 +36,7 @@ int Transfer::getUserId()
     return userId;
 }
 
-string Transfer::getDate()
+int Transfer::getDate()
 {
     return date;
 }

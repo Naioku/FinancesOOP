@@ -34,7 +34,7 @@ Transfer TransferManager::passNewIncomeData()
         string choice = HelpingMethods::getTheLine();
         if (choice == "today")
         {
-            income.setDate(dateOperations.getPresentDateString());
+            income.setDate(dateOperations.getPresentDateInt());
             break;
         }
         else if (choice == "manual")
@@ -65,7 +65,7 @@ void TransferManager::listIncomeData(Transfer income)
 {
     cout << endl;
     cout << endl << "Id:                 " << income.getId() << endl;
-    cout << "Date:               " << income.getDate() << endl;
+    cout << "Date:               " << dateOperations.transcriptDateFromIntToStringSplittedByACharacter(income.getDate(), '-') << endl;
     cout << "Item:               " << income.getItem() << endl;
     cout << "Amount:             " << income.getAmount() << endl;
     cout << endl;
@@ -91,7 +91,7 @@ void TransferManager::listAllIncomes()
     system("pause");
 }
 
-void TransferManager::listIncomesBetweenProvidedDates(string providedDateFrom, string providedDateTo)
+void TransferManager::listIncomesBetweenProvidedDates(int providedDateFrom, int providedDateTo)
 {
     if (!incomes.empty())
     {
@@ -253,7 +253,7 @@ Transfer TransferManager::passNewExpenseData()
         string choice = HelpingMethods::getTheLine();
         if (choice == "today")
         {
-            expense.setDate(dateOperations.getPresentDateString());
+            expense.setDate(dateOperations.getPresentDateInt());
             break;
         }
         else if (choice == "manual")
@@ -284,7 +284,7 @@ void TransferManager::listExpenseData(Transfer expense)
 {
     cout << endl;
     cout << endl << "Id:                 " << expense.getId() << endl;
-    cout << "Date:               " << expense.getDate() << endl;
+    cout << "Date:               " << dateOperations.transcriptDateFromIntToStringSplittedByACharacter(expense.getDate(), '-') << endl;
     cout << "Item:               " << expense.getItem() << endl;
     cout << "Amount:             " << expense.getAmount() << endl;
     cout << endl;
@@ -310,7 +310,7 @@ void TransferManager::listAllExpenses()
     system("pause");
 }
 
-void TransferManager::listExpensesBetweenProvidedDates(string providedDateFrom, string providedDateTo)
+void TransferManager::listExpensesBetweenProvidedDates(int providedDateFrom, int providedDateTo)
 {
     if (!expenses.empty())
     {
@@ -467,18 +467,20 @@ void TransferManager::editOrDeleteTransfer()
     }
 }
 
-string TransferManager::getDateFromUser()
+int TransferManager::getDateFromUser()
 {
-    string date = "";
+    string dateInString = "";
+    int dateInInt;
     while (true)
     {
         cout << "Write down date: ";
-        date = HelpingMethods::getTheLine();
-        if (dateOperations.isDateCorrect(date))
+        dateInString = HelpingMethods::getTheLine();
+        dateInInt = dateOperations.transcriptDateSplittedByACharacterFromStringToInt(dateInString, '-');
+        if (dateOperations.isDateCorrect(dateInInt))
             break;
         cout << "Date has incorrect format. Please, type again." << endl << endl;
     }
-    return date;
+    return dateInInt;
 }
 
 char TransferManager::chooseTheOptionFromUserMenu()
@@ -555,10 +557,13 @@ void TransferManager::listIncomesAndExpensesBetweenProvidedDateAndShowTheBalance
     system("cls");
 
     cout << "Type date from." << endl;
-    string providedDateFrom = getDateFromUser();
+    int providedDateFrom = getDateFromUser();
 
     cout << "Type date to." << endl;
-    string providedDateTo = getDateFromUser();
+    int providedDateTo = getDateFromUser();
+
+    cout << "providedDateFrom: " << providedDateFrom << endl;
+    cout << "providedDateTo: " << providedDateTo << endl;
 
     incomes = dateOperations.sortByDate(incomes);
     listIncomesBetweenProvidedDates(providedDateFrom, providedDateTo);
@@ -572,8 +577,8 @@ void TransferManager::listIncomesAndExpensesFromPresentMonthAndShowTheBalance()
 {
     system("cls");
 
-    string dateFrom = dateOperations.getTheDateOfTheFirstDayOfPresentMonthInString();
-    string dateTo = dateOperations.getTheDateOfTheLastDayOfPresentMonthInString();
+    int dateFrom = dateOperations.getTheDateOfTheFirstDayOfPresentMonthInString();
+    int dateTo = dateOperations.getTheDateOfTheLastDayOfPresentMonthInString();
 
     incomes = dateOperations.sortByDate(incomes);
     listIncomesBetweenProvidedDates(dateFrom, dateTo);
@@ -587,8 +592,8 @@ void TransferManager::listIncomesAndExpensesFromPreviousMonthAndShowTheBalance()
 {
     system("cls");
 
-    string dateFrom = dateOperations.getTheDateOfTheFirstDayOfPreviousMonthInString();
-    string dateTo = dateOperations.getTheDateOfTheLastDayOfPreviousMonthInString();
+    int dateFrom = dateOperations.getTheDateOfTheFirstDayOfPreviousMonthInString();
+    int dateTo = dateOperations.getTheDateOfTheLastDayOfPreviousMonthInString();
 
     incomes = dateOperations.sortByDate(incomes);
     listIncomesBetweenProvidedDates(dateFrom, dateTo);
@@ -598,7 +603,7 @@ void TransferManager::listIncomesAndExpensesFromPreviousMonthAndShowTheBalance()
     system("pause");
 }
 
-void TransferManager::calculateBalance(string providedDateFrom, string providedDateTo)
+void TransferManager::calculateBalance(int providedDateFrom, int providedDateTo)
 {
     float incomesValue = 0;
     for (vector <Transfer>::iterator itr = incomes.begin(); itr != incomes.end(); itr++)

@@ -33,10 +33,10 @@ class TransferManager
     int passChosenTransferId();
     void updateChosenIncomeData(Transfer income);
     void updateChosenExpenseData(Transfer expense);
-    string getDateFromUser();
-    void listIncomesBetweenProvidedDates(string providedDateFrom, string providedDateTo);
-    void listExpensesBetweenProvidedDates(string providedDateFrom, string providedDateTo);
-    void calculateBalance(string providedDateFrom, string providedDateTo);
+    int getDateFromUser();
+    void listIncomesBetweenProvidedDates(int providedDateFrom, int providedDateTo);
+    void listExpensesBetweenProvidedDates(int providedDateFrom, int providedDateTo);
+    void calculateBalance(int providedDateFrom, int providedDateTo);
     char chooseTheOptionEditDeleteMenu();
     //void showFoundIncomesQuantity(int incomesQuantity);
 

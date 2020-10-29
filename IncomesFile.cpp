@@ -25,7 +25,7 @@ bool IncomesFile::addIncomeToFile(Transfer income)
     xml.IntoElem();
     xml.AddElem("Id", income.getId());
     xml.AddElem("UserId", income.getUserId());
-    xml.AddElem("Date", income.getDate());
+    xml.AddElem("Date", dateOperations.transcriptDateFromIntToStringSplittedByACharacter(income.getDate(), '-'));
     xml.AddElem("Item", income.getItem());
     xml.AddElem("Amount", income.getAmount());
 
@@ -58,7 +58,7 @@ vector<Transfer> IncomesFile::loadIncomesFromFile(int loggedUserId)
             lastIncomeId = atoi(getOneDataOfOneTransferFromFile("Id").c_str());
             income.setId(lastIncomeId);
             income.setUserId(oneTransferUserId);
-            income.setDate(getOneDataOfOneTransferFromFile("Date"));
+            income.setDate(dateOperations.transcriptDateSplittedByACharacterFromStringToInt(getOneDataOfOneTransferFromFile("Date"), '-'));
             income.setItem(getOneDataOfOneTransferFromFile("Item"));
             income.setAmount(getOneDataOfOneTransferFromFile("Amount"));
 
@@ -152,7 +152,7 @@ void IncomesFile::readdIncomeToFile(Transfer income)
     xml.IntoElem();
     xml.AddElem("Id", income.getId());
     xml.AddElem("UserId", income.getUserId());
-    xml.AddElem("Date", income.getDate());
+    xml.AddElem("Date", dateOperations.transcriptDateFromIntToStringSplittedByACharacter(income.getDate(), '-'));
     xml.AddElem("Item", income.getItem());
     xml.AddElem("Amount", income.getAmount());
 }
