@@ -312,7 +312,6 @@ void TransferManager::listAllExpenses()
 
 void TransferManager::listExpensesBetweenProvidedDates(string providedDateFrom, string providedDateTo)
 {
-    cout << "Start of listExpensesBetweenProvidedDates" << endl;
     if (!expenses.empty())
     {
         cout << endl << "             >>> EXPENSE(S) <<<" << endl;
@@ -330,8 +329,6 @@ void TransferManager::listExpensesBetweenProvidedDates(string providedDateFrom, 
     {
         cout << endl << "There is not any expense between provided dates." << endl << endl;
     }
-
-    cout << "End of listExpensesBetweenProvidedDates" << endl;
 }
 
 void TransferManager::deleteExpense()

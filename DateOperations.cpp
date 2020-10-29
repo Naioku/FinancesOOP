@@ -209,9 +209,8 @@ bool DateOperations::isDateFromFileInProvidedMonth(string dateFromFileInString, 
     return false;
 }
 
-void DateOperations::quickSort(vector<Transfer> &transfers, int left, int right)
+void DateOperations::quickSort(vector<Transfer> transfers, int left, int right)
 {
-    cout << "Start of quickSort" << endl;
     if(right <= left) return;
 
 	int i = left - 1, j = right + 1;
@@ -226,20 +225,15 @@ void DateOperations::quickSort(vector<Transfer> &transfers, int left, int right)
 		else    	break;
 	}
 
-	if(j > left)
-	quickSort(transfers, left, j);
-	if(i < right)
-	quickSort(transfers, i, right);
-	cout << "End of quickSort" << endl;
+	if(j > left) quickSort(transfers, left, j);
+	if(i < right) quickSort(transfers, i, right);
 }
 
 vector<Transfer> DateOperations::sortByDate(vector<Transfer> transfers)
 {
-    cout << "Start of sortByDate" << endl;
     int left = 0;
     int right = transfers.size() - 1;
     quickSort(transfers, left, right);
-    cout << "End of sortByDate" << endl;
 
     return transfers;
 

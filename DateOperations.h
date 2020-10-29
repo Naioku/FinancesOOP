@@ -24,7 +24,7 @@ class DateOperations
     int transcriptDateSplittedByACharacterFromStringToInt(string dateTextLineWithSeparator, char splittingCharacter);
     string transcriptDateFromIndToStringSplittedByACharacter(int dateInt, char splittingCharacter);
     bool isPreviousMonthZero();
-    void quickSort(vector<Transfer> &transfers, int left, int right);
+    void quickSort(vector<Transfer> transfers, int left, int right);
 
 public:
     DateOperations()
