@@ -38,7 +38,10 @@ class TransferManager
     void listExpensesBetweenProvidedDates(int providedDateFrom, int providedDateTo);
     void calculateBalance(int providedDateFrom, int providedDateTo);
     char chooseTheOptionEditDeleteMenu();
-    //void showFoundIncomesQuantity(int incomesQuantity);
+    void deleteIncome();
+    void deleteExpense();
+    void editIncome();
+    void editExpense();
 
 public:
     TransferManager(string incomesFileName = "", string expensesFileName = "", int loggedUserId = 0)
@@ -50,26 +53,15 @@ public:
 
     void addIncome();
     void addExpense();
-    void listAllIncomes();
-    void listAllExpenses();
-    void deleteIncome();
-    void deleteExpense();
-    void editIncome();
-    void editExpense();
+    void listAllIncomes(); // to delete
+    void listAllExpenses(); // to delete
+
     void listIncomesAndExpensesBetweenProvidedDateAndShowTheBalance();
     void listIncomesAndExpensesFromPresentMonthAndShowTheBalance();
     void listIncomesAndExpensesFromPreviousMonthAndShowTheBalance();
     void editOrDeleteTransfer();
 
-
-
-    // Ideas
-    //void searchByItem();
-    //void searchByDate();
-    //void searchByAmount();
-
     char chooseTheOptionFromUserMenu();
-
 };
 
 #endif // TRANSFER_MANAGER_H

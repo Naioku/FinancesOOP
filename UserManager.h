@@ -27,7 +27,7 @@ public:
         idLoggedInUser = 0;
     };
     void userRegistration();
-    void listAllOfUsers();
+    void listAllOfUsers(); // to delete
     void userLogIn();
     void userLogOut();
     int getIdLoggedInUser();

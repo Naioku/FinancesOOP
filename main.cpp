@@ -1,11 +1,72 @@
 #include <iostream>
 
+#include "Finances.h"
+
 using namespace std;
 
 
-int _main()
+int main()
 {
-    cout << "Ok." << endl;
+    Finances finances("users.xml", "incomes.xml", "expenses.xml");
+    int choice;
+    while (true)
+    {
+        if (finances.getIdLoggedInUser() == 0)
+        {
+            choice = finances.chooseTheOptionFromMainMenu();
+
+            switch (choice)
+            {
+            case '1':
+                finances.userRegistration();
+                break;
+            case '2':
+                finances.userLogIn();
+                break;
+            case '0':
+                exit(0);
+                break;
+            default:
+                cout << endl << "There is no option you want to use." << endl << endl;
+                system("pause");
+                break;
+            }
+        }
+        else
+        {
+            choice = finances.chooseTheOptionFromUserMenu();
+
+            switch (choice)
+            {
+            case '1':
+                finances.addIncome();
+                break;
+            case '2':
+                finances.addExpense();
+                break;
+            case '3':
+                finances.listIncomesAndExpensesFromPresentMonthAndShowTheBalance();
+                break;
+            case '4':
+                finances.listIncomesAndExpensesFromPreviousMonthAndShowTheBalance();
+                break;
+            case '5':
+                finances.listIncomesAndExpensesBetweenProvidedDateAndShowTheBalance();
+                break;
+            case '6':
+                finances.editOrDeleteTransfer();
+                break;
+            case '0':
+                exit(0);
+                break;
+            default:
+                cout << endl << "There is no option you want to use." << endl << endl;
+                system("pause");
+                break;
+            }
+
+        }
+    }
 
     return 0;
 }
@@ -74,7 +135,7 @@ int UserManager_main()
 // TEST TRANSFER_MANAGER
 #include "TransferManager.h"
 
-int main()
+int TransferManager_main()
 {
     TransferManager transferManager("incomes.xml", "expenses.xml", 1);
     char choice;

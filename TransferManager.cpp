@@ -562,9 +562,6 @@ void TransferManager::listIncomesAndExpensesBetweenProvidedDateAndShowTheBalance
     cout << "Type date to." << endl;
     int providedDateTo = getDateFromUser();
 
-    cout << "providedDateFrom: " << providedDateFrom << endl;
-    cout << "providedDateTo: " << providedDateTo << endl;
-
     incomes = dateOperations.sortByDate(incomes);
     listIncomesBetweenProvidedDates(providedDateFrom, providedDateTo);
     expenses = dateOperations.sortByDate(expenses);

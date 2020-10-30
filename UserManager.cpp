@@ -158,8 +158,8 @@ char UserManager::chooseTheOptionFromMainMenu()
     cout << "---------------------------" << endl;
     cout << "1. Registration" << endl;
     cout << "2. Log In" << endl;
-    cout << "3. List all of users" << endl;
-    cout << "9. Close program" << endl;
+    cout << "---------------------------" << endl;
+    cout << "0. Close program" << endl;
     cout << "---------------------------" << endl;
     cout << "Your choice: ";
     choice = HelpingMethods::getTheChar();
