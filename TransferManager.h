@@ -16,6 +16,8 @@ using namespace std;
 class TransferManager
 {
     const int LOGGED_USER_ID;
+    const string LOGGED_USER_NAME;
+    const string LOGGED_USER_SURNAME;
     vector <Transfer> incomes;
     IncomesFile incomesFile;
     vector <Transfer> expenses;
@@ -44,8 +46,8 @@ class TransferManager
     void editExpense();
 
 public:
-    TransferManager(string incomesFileName = "", string expensesFileName = "", int loggedUserId = 0)
-        : incomesFile(incomesFileName), expensesFile(expensesFileName), LOGGED_USER_ID(loggedUserId)
+    TransferManager(string incomesFileName = "", string expensesFileName = "", int loggedUserId = 0, string loggedUserName = "", string loggedUserSurname = "")
+        : incomesFile(incomesFileName), expensesFile(expensesFileName), LOGGED_USER_ID(loggedUserId), LOGGED_USER_NAME(loggedUserName), LOGGED_USER_SURNAME(loggedUserSurname)
     {
         incomes = incomesFile.loadIncomesFromFile(LOGGED_USER_ID);
         expenses = expensesFile.loadExpensesFromFile(LOGGED_USER_ID);
@@ -53,8 +55,8 @@ public:
 
     void addIncome();
     void addExpense();
-    void listAllIncomes(); // to delete
-    void listAllExpenses(); // to delete
+    //void listAllIncomes(); Only in case of searching a bug
+    //void listAllExpenses(); Only in case of searching a bug
 
     void listIncomesAndExpensesBetweenProvidedDateAndShowTheBalance();
     void listIncomesAndExpensesFromPresentMonthAndShowTheBalance();

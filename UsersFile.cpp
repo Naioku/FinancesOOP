@@ -58,36 +58,54 @@ User UsersFile::getUserData()
 
     return user;
 }
-/*
-void PlikZUzytkownikami::zapiszWszystkichUzytkownikowDoPliku(vector<Uzytkownik> &uzytkownicy)
+
+bool UsersFile::editUserInFile(User user)
 {
-    fstream xmlFile;
-    string liniaZDanymiUzytkownika = "";
-    vector <Uzytkownik>::iterator itrKoniec = --uzytkownicy.end();
-
-    plikTekstowy.open(NAZWA_PLIKU_Z_UZYTKOWNIKAMI.c_str(), ios::out);
-
-    if (plikTekstowy.good() == true)
+    int searchedUserId = user.getId();
+    int oneUserId;
+    bool fileExists = xml.Load(USERS_FILE_NAME);
+    if (fileExists)
     {
-        for (vector <Uzytkownik>::iterator itr = uzytkownicy.begin(); itr != uzytkownicy.end(); itr++)
+        xml.ResetPos();
+        xml.FindElem();
+        xml.IntoElem();
+        while (xml.FindElem("User"))
         {
-            liniaZDanymiUzytkownika = zamienDaneUzytkownikaNaLinieZDanymiOddzielonaPionowymiKreskami(*itr);
-
-            if (itr == itrKoniec)
+            oneUserId = atoi(getOneDataOfOneUserFromFile("UserId").c_str());
+            if (oneUserId == searchedUserId)
             {
-               plikTekstowy << liniaZDanymiUzytkownika;
+                removeAllInformationsAboutOneUser();
+                readdUserToFile(user);
+                xml.Save(USERS_FILE_NAME);
+                return true;
             }
-            else
-            {
-                plikTekstowy << liniaZDanymiUzytkownika << endl;
-            }
-            liniaZDanymiUzytkownika = "";
         }
     }
-    else
-    {
-        cout << "Nie mozna otworzyc pliku " << NAZWA_PLIKU_Z_UZYTKOWNIKAMI << endl;
-    }
-    plikTekstowy.close();
+
+    return false;
 }
-*/
+
+string UsersFile::getOneDataOfOneUserFromFile(string data_type)
+{
+    xml.FindChildElem(data_type);
+    return xml.GetChildData();
+}
+
+void UsersFile::removeAllInformationsAboutOneUser()
+{
+    xml.ResetChildPos();
+    while (xml.FindChildElem())
+    {
+        xml.RemoveChildElem();
+    }
+}
+
+void UsersFile::readdUserToFile(User user)
+{
+    xml.IntoElem();
+    xml.AddElem("UserId", user.getId());
+    xml.AddElem("Login", user.getLogin());
+    xml.AddElem("Password", user.getPassword());
+    xml.AddElem("Name", user.getName());
+    xml.AddElem("Surname", user.getSurname());
+}

@@ -18,10 +18,10 @@ int main()
             switch (choice)
             {
             case '1':
-                finances.userRegistration();
+                finances.userLogIn();
                 break;
             case '2':
-                finances.userLogIn();
+                finances.userRegistration();
                 break;
             case '0':
                 exit(0);
@@ -56,21 +56,23 @@ int main()
             case '6':
                 finances.editOrDeleteTransfer();
                 break;
+            case '9':
+                finances.changeLoggedInUserPassword();
+                break;
             case '0':
-                exit(0);
+                finances.userLogOut();
                 break;
             default:
                 cout << endl << "There is no option you want to use." << endl << endl;
                 system("pause");
                 break;
             }
-
         }
     }
 
     return 0;
 }
-
+/*
 // TEST DATE_OPERATIONS
 #include "DateOperations.h"
 
@@ -120,7 +122,6 @@ int UserManager_main()
         else
         {
             userManager.userLogOut();
-
         }
     }
     //userManager.userRegistration();
@@ -181,3 +182,4 @@ int TransferManager_main()
 
     return 0;
 }
+*/

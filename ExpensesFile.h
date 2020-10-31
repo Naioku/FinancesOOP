@@ -23,13 +23,6 @@ class ExpensesFile
     void getLastExpenseIdFromFile();
     void removeAllInformationsAboutOneExpense();
     void readdExpenseToFile(Transfer expense);
-    //int pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami);
-    //Adresat pobierzDaneAdresata(string daneAdresataOddzielonePionowymiKreskami);
-    //string pobierzLiczbe(string tekst, int pozycjaZnaku);
-    //int pobierzIdUzytkownikaZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami);
-
-    //void usunPlik(string nazwaPlikuZRozszerzeniem);
-    //void zmienNazwePliku(string staraNazwa, string nowaNazwa);
 
 public:
     ExpensesFile(string expensesFileName = "")
@@ -44,10 +37,6 @@ public:
     bool deleteOneExpenseInFileById(int deletedExpenseId);
     void refreshLastExpenseIdAfterRemovingChosenExpense(int deletedExpenseId);
     void editExpenseInFile(Transfer expense);
-    //void usunWybranaLinieWPliku(int idUsuwanegoAdresata);
-    //void odswiezIdOstatniegoAdresataPoUsunieciuWybranegoAdresata(int idUsuwanegoAdresata);
-    //void pobierzZPlikuIdOstatniegoAdresata();
-    //void edytujWybranaLinieWPliku(Adresat adresat);
 };
 
 #endif // EXPENSES_FILE_H

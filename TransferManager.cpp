@@ -17,6 +17,7 @@ void TransferManager::addIncome()
     else
         cout << "Error! We could not add new income." << endl;
 
+    cout << endl;
     system("pause");
 }
 
@@ -56,7 +57,7 @@ Transfer TransferManager::passNewIncomeData()
     income.setItem(HelpingMethods::changeFirstLetterToUpperRestToLower(income.getItem()));
 
     cout << "Write down amount: ";
-    income.setAmount(HelpingMethods::getTheLine());
+    income.setAmount(HelpingMethods::changeCommaToPoint(HelpingMethods::getTheLine()));
 
     return income;
 }
@@ -71,6 +72,7 @@ void TransferManager::listIncomeData(Transfer income)
     cout << endl;
 }
 
+/* Only in case of searching a bug
 void TransferManager::listAllIncomes()
 {
     system("cls");
@@ -90,6 +92,7 @@ void TransferManager::listAllIncomes()
     }
     system("pause");
 }
+*/
 
 void TransferManager::listIncomesBetweenProvidedDates(int providedDateFrom, int providedDateTo)
 {
@@ -194,7 +197,7 @@ void TransferManager::editIncome()
                 break;
             case '3':
                 cout << "Type new amount: ";
-                incomes[i].setAmount(HelpingMethods::getTheLine());
+                incomes[i].setAmount(HelpingMethods::changeCommaToPoint(HelpingMethods::getTheLine()));
                 updateChosenIncomeData(incomes[i]);
                 break;
             case '0':
@@ -237,6 +240,7 @@ void TransferManager::addExpense()
     else
         cout << "Error! We could not add new expense." << endl;
 
+    cout << endl;
     system("pause");
 }
 
@@ -275,7 +279,7 @@ Transfer TransferManager::passNewExpenseData()
     expense.setItem(HelpingMethods::changeFirstLetterToUpperRestToLower(expense.getItem()));
 
     cout << "Write down amount: ";
-    expense.setAmount(HelpingMethods::getTheLine());
+    expense.setAmount(HelpingMethods::changeCommaToPoint(HelpingMethods::getTheLine()));
 
     return expense;
 }
@@ -290,6 +294,7 @@ void TransferManager::listExpenseData(Transfer expense)
     cout << endl;
 }
 
+/* Only in case of searching a bug
 void TransferManager::listAllExpenses()
 {
     system("cls");
@@ -309,6 +314,7 @@ void TransferManager::listAllExpenses()
     }
     system("pause");
 }
+*/
 
 void TransferManager::listExpensesBetweenProvidedDates(int providedDateFrom, int providedDateTo)
 {
@@ -413,7 +419,7 @@ void TransferManager::editExpense()
                 break;
             case '3':
                 cout << "Type new amount: ";
-                expenses[i].setAmount(HelpingMethods::getTheLine());
+                expenses[i].setAmount(HelpingMethods::changeCommaToPoint(HelpingMethods::getTheLine()));
                 updateChosenExpenseData(expenses[i]);
                 break;
             case '0':
@@ -488,6 +494,7 @@ char TransferManager::chooseTheOptionFromUserMenu()
     char choice;
 
     system("cls");
+    cout << "Welcome " << LOGGED_USER_NAME << " " << LOGGED_USER_SURNAME << "! :)" << endl << endl;
     cout << " >>> USER MENU <<<" << endl;
     cout << "---------------------------" << endl;
     cout << "1. Add income" << endl;

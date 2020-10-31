@@ -23,13 +23,6 @@ class IncomesFile
     void getLastIncomeIdFromFile();
     void removeAllInformationsAboutOneIncome();
     void readdIncomeToFile(Transfer income);
-    //int pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami);
-    //Adresat pobierzDaneAdresata(string daneAdresataOddzielonePionowymiKreskami);
-    //string pobierzLiczbe(string tekst, int pozycjaZnaku);
-    //int pobierzIdUzytkownikaZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami);
-
-    //void usunPlik(string nazwaPlikuZRozszerzeniem);
-    //void zmienNazwePliku(string staraNazwa, string nowaNazwa);
 
 public:
     IncomesFile(string incomesFileName = "")
@@ -44,10 +37,6 @@ public:
     bool deleteOneIncomeInFileById(int deletedIncomeId);
     void refreshLastIncomeIdAfterRemovingChosenIncome(int deletedIncomeId);
     void editIncomeInFile(Transfer income);
-    //void usunWybranaLinieWPliku(int idUsuwanegoAdresata);
-    //void odswiezIdOstatniegoAdresataPoUsunieciuWybranegoAdresata(int idUsuwanegoAdresata);
-    //void pobierzZPlikuIdOstatniegoAdresata();
-    //void edytujWybranaLinieWPliku(Adresat adresat);
 };
 
 #endif // INCOMES_FILE_H

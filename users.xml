@@ -28,4 +28,11 @@
 <Name>d</Name>
 <Surname>d</Surname>
 </User>
+<User>
+<UserId>5</UserId>
+<Login>Hina</Login>
+<Password>TenkiNoKo</Password>
+<Name>Hina</Name>
+<Surname>Amano</Surname>
+</User>
 </Users>

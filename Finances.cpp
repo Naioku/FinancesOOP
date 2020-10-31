@@ -10,7 +10,7 @@ void Finances::userLogIn()
     userManager.userLogIn();
     if(userManager.doesUserLoggedIn())
     {
-        transferManager = new TransferManager(INCOMES_FILE_NAME, EXPENSES_FILE_NAME, userManager.getIdLoggedInUser());
+        transferManager = new TransferManager(INCOMES_FILE_NAME, EXPENSES_FILE_NAME, userManager.getIdLoggedInUser(), userManager.getNameLoggedInUser(), userManager.getSurnameLoggedInUser());
     }
 }
 
