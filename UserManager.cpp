@@ -57,6 +57,7 @@ bool UserManager::doesLoginExists(string login)
     return false;
 }
 
+/* Only in case of searching a bug
 void UserManager::listAllOfUsers()
 {
     int userQuantity = users.size();
@@ -72,6 +73,7 @@ void UserManager::listAllOfUsers()
     }
     system("pause");
 }
+*/
 
 void UserManager::userLogIn()
 {
@@ -94,6 +96,8 @@ void UserManager::userLogIn()
                 if (itr -> getPassword() == password)
                 {
                     idLoggedInUser = itr -> getId();
+                    nameLoggedInUser = itr -> getName();
+                    surnameLoggedInUser = itr -> getSurname();
                     cout << endl << "You have been logged in." << endl << endl;
                     system("pause");
                     return;
@@ -120,6 +124,16 @@ int UserManager::getIdLoggedInUser()
     return idLoggedInUser;
 }
 
+string UserManager::getNameLoggedInUser()
+{
+    return nameLoggedInUser;
+}
+
+string UserManager::getSurnameLoggedInUser()
+{
+    return surnameLoggedInUser;
+}
+
 bool UserManager::doesUserLoggedIn()
 {
     if(idLoggedInUser > 0) return true;
@@ -132,16 +146,19 @@ void UserManager::changeLoggedInUserPassword()
     cout << "Write down new password: ";
     newPassword = HelpingMethods::getTheLine();
 
-    for (vector <User>::iterator itr = users.begin(), itrEnd = users.end(); itr != itrEnd; itr++)
+    for (int i = 0; i < users.size(); i++)
     {
-        if (itr -> getId() == idLoggedInUser)
+        if (users[i].getId() == idLoggedInUser)
         {
-            itr -> setPassword(newPassword);
-            cout << "Password has been changed." << endl << endl;
+            users[i].setPassword(newPassword);
+            if (usersFile.editUserInFile(users[i]))
+                cout << "Password has been changed." << endl << endl;
+            else
+                cout << "Password has not been changed." << endl << endl;
             system("pause");
+            return;
         }
     }
-    //plikZUzytkownikami.zapiszWszystkichUzytkownikowDoPliku(uzytkownicy);
 }
 
 void UserManager::loadUsersFromFile()
@@ -156,8 +173,8 @@ char UserManager::chooseTheOptionFromMainMenu()
     system("cls");
     cout << "    >>> MAIN MENU <<<" << endl;
     cout << "---------------------------" << endl;
-    cout << "1. Registration" << endl;
-    cout << "2. Log In" << endl;
+    cout << "1. Log In" << endl;
+    cout << "2. Registration" << endl;
     cout << "---------------------------" << endl;
     cout << "0. Close program" << endl;
     cout << "---------------------------" << endl;

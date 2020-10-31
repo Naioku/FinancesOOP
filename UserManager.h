@@ -14,6 +14,8 @@ class UserManager
     User user;
     vector<User> users;
     int idLoggedInUser;
+    string nameLoggedInUser;
+    string surnameLoggedInUser;
     UsersFile usersFile;
 
     User passNewUserData();
@@ -27,10 +29,12 @@ public:
         idLoggedInUser = 0;
     };
     void userRegistration();
-    void listAllOfUsers(); // to delete
+    //void listAllOfUsers(); Only in case of searching a bug
     void userLogIn();
     void userLogOut();
     int getIdLoggedInUser();
+    string getNameLoggedInUser();
+    string getSurnameLoggedInUser();
     bool doesUserLoggedIn();
     void changeLoggedInUserPassword();
     char chooseTheOptionFromMainMenu();

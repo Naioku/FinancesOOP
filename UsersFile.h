@@ -17,12 +17,15 @@ class UsersFile
     CMarkup xml;
 
     User getUserData();
+    string getOneDataOfOneUserFromFile(string data_type);
+    void removeAllInformationsAboutOneUser();
+    void readdUserToFile(User user);
 
 public:
     UsersFile(string usersFileName) : USERS_FILE_NAME(usersFileName) {};
     void addUserToFile(User user);
     vector<User> loadUsersFromFile();
-    //void zapiszWszystkichUzytkownikowDoPliku(vector<Uzytkownik> &uzytkownicy);
+    bool editUserInFile(User user);
 };
 
 #endif // USERSFILE_H

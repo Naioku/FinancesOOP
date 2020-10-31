@@ -67,3 +67,11 @@ float HelpingMethods::round(float var)
     return (float)value/100;
 }
 
+string HelpingMethods::changeCommaToPoint(string number)
+{
+    size_t position = number.find(",");
+    if(position != string::npos)
+        number.replace(position, 1, ".");
+
+    return number;
+}
