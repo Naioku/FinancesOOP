@@ -6,8 +6,10 @@ void DateOperations::setPresentDateString()
     tm *ltm = localtime(&now);
 
     string year = to_string(1900 + ltm->tm_year);
-    string month = to_string(ltm->tm_mon + 1);
-    string monthday = to_string(ltm->tm_mday);
+    int monthInt = ltm->tm_mon + 1;
+    int monthdayInt = ltm->tm_mday;
+    string month = HelpingMethods::changeIntToStringInDoubleDiditFormat(monthInt);
+    string monthday = HelpingMethods::changeIntToStringInDoubleDiditFormat(monthdayInt);
 
     presentDateString = year + "-" + month + "-" + monthday;
 }
@@ -45,12 +47,16 @@ int DateOperations::getTheDateOfTheLastDayOfPreviousMonthInString()
 string DateOperations::transcriptDateFromIntToStringSplittedByACharacter(int dateInt, char splittingCharacter)
 {
     string year = to_string(dateInt/10000);
-    string month = to_string((dateInt/100) % 100);
-    string monthday = "";
+    int monthInt = (dateInt/100) % 100;
     int monthdayInt = dateInt % 100;
+    string month = HelpingMethods::changeIntToStringInDoubleDiditFormat(monthInt);
+    string monthday = HelpingMethods::changeIntToStringInDoubleDiditFormat(monthdayInt);
+/*
+    if ((1 <= monthInt) && (monthInt <= 9)) month += "0";
+    month += to_string(monthInt);
     if ((1 <= monthdayInt) && (monthdayInt <= 9)) monthday += "0";
     monthday += to_string(monthdayInt);
-
+*/
     string dateString = year + splittingCharacter + month + splittingCharacter + monthday;
 
     return dateString;
@@ -134,6 +140,7 @@ int DateOperations::transcriptDateSplittedByACharacterFromStringToInt(string dat
         if (character != textLineLength)
             character = dateTextLineWithSeparator[characterPosition];
     }
+
     int dateInt = atoi(dateTextLineWithoutSeparator.c_str());
 
     return dateInt;

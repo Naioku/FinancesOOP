@@ -19,6 +19,7 @@ public:
     static string truncStringfloatToTwoDigitsAfterPoint(string number);
     static float round(float var);
     static string changeCommaToPoint(string number);
+    static string changeIntToStringInDoubleDiditFormat(int numberInt);
 };
 
 #endif // HELPING_METHODS_H
