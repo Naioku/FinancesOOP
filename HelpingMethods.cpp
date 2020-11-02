@@ -75,3 +75,12 @@ string HelpingMethods::changeCommaToPoint(string number)
 
     return number;
 }
+
+string HelpingMethods::changeIntToStringInDoubleDiditFormat(int numberInt)
+{
+    string numberString = "";
+    if ((1 <= numberInt) && (numberInt <= 9)) numberString += "0";
+    numberString += to_string(numberInt);
+
+    return numberString;
+}

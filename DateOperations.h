@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "Transfer.h"
+#include "HelpingMethods.h"
 
 using namespace std;
 

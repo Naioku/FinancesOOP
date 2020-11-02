@@ -65,10 +65,10 @@ Transfer TransferManager::passNewIncomeData()
 void TransferManager::listIncomeData(Transfer income)
 {
     cout << endl;
-    cout << endl << "Id:                 " << income.getId() << endl;
+    cout << "Id:                 " << income.getId() << endl;
     cout << "Date:               " << dateOperations.transcriptDateFromIntToStringSplittedByACharacter(income.getDate(), '-') << endl;
     cout << "Item:               " << income.getItem() << endl;
-    cout << "Amount:             " << income.getAmount() << endl;
+    cout << "Amount:             " << income.getAmount();
     cout << endl;
 }
 
@@ -148,7 +148,6 @@ void TransferManager::deleteIncome()
                     cout << "File does not exist!" << endl;
                     return;
                 }
-
             }
             else
             {
@@ -273,7 +272,6 @@ Transfer TransferManager::passNewExpenseData()
 
     }
 
-
     cout << "Write down item: ";
     expense.setItem(HelpingMethods::getTheLine());
     expense.setItem(HelpingMethods::changeFirstLetterToUpperRestToLower(expense.getItem()));
@@ -287,10 +285,10 @@ Transfer TransferManager::passNewExpenseData()
 void TransferManager::listExpenseData(Transfer expense)
 {
     cout << endl;
-    cout << endl << "Id:                 " << expense.getId() << endl;
+    cout << "Id:                 " << expense.getId() << endl;
     cout << "Date:               " << dateOperations.transcriptDateFromIntToStringSplittedByACharacter(expense.getDate(), '-') << endl;
     cout << "Item:               " << expense.getItem() << endl;
-    cout << "Amount:             " << expense.getAmount() << endl;
+    cout << "Amount:             " << expense.getAmount();
     cout << endl;
 }
 
