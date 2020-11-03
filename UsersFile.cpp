@@ -37,7 +37,6 @@ vector<User> UsersFile::loadUsersFromFile()
         users.push_back(user);
     }
 
-
     return users;
 }
 
