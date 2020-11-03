@@ -23,6 +23,7 @@ class DateOperations
     int getYearFromDateInt(int date);
     int calculateAppropriateDaysQuantityInMonth(int date);
     vector<Transfer> quickSort(vector<Transfer> transfers, int left, int right);
+    string transcriptDateSplittedByACharacterFromStringToString(string dateTextLineWithSeparator, char splittingCharacter);
 
 public:
     DateOperations()
@@ -31,6 +32,7 @@ public:
         setPresentDateInt();
     };
     bool isDateCorrect(int date);
+    bool checkDateFormat(string date);
     bool isDateBetweenProvidedDates(int dateFromInString, int dateToInString, int dateFromFileInString);
     string getPresentDateString();
     int getPresentDateInt();

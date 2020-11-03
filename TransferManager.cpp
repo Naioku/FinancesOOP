@@ -473,17 +473,22 @@ void TransferManager::editOrDeleteTransfer()
 
 int TransferManager::getDateFromUser()
 {
+    cout << "Please type date in exactly that format: RRRR-MM-DD, e.g. 2020-06-01." << endl;
     string dateInString = "";
     int dateInInt;
     while (true)
     {
         cout << "Write down date: ";
         dateInString = HelpingMethods::getTheLine();
-        dateInInt = dateOperations.transcriptDateSplittedByACharacterFromStringToInt(dateInString, '-');
-        if (dateOperations.isDateCorrect(dateInInt))
-            break;
+        if (dateOperations.checkDateFormat(dateInString))
+        {
+            dateInInt = dateOperations.transcriptDateSplittedByACharacterFromStringToInt(dateInString, '-');
+            if (dateOperations.isDateCorrect(dateInInt))
+                break;
+        }
         cout << "Date has incorrect format. Please, type again." << endl << endl;
     }
+    cout << endl;
     return dateInInt;
 }
 

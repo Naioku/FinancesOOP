@@ -36,10 +36,7 @@ User UserManager::passNewUserData()
 
 int UserManager::getNewIdOfTheNewUser()
 {
-    if (users.empty() == true)
-        return 1;
-    else
-        return users.back().getId() + 1;
+    return users.empty() ? 1 : users.back().getId() + 1;
 }
 
 bool UserManager::doesLoginExists(string login)
@@ -136,8 +133,7 @@ string UserManager::getSurnameLoggedInUser()
 
 bool UserManager::doesUserLoggedIn()
 {
-    if(idLoggedInUser > 0) return true;
-    else                   return false;
+    return (idLoggedInUser > 0) ? true : false;
 }
 
 void UserManager::changeLoggedInUserPassword()

@@ -51,12 +51,7 @@ string DateOperations::transcriptDateFromIntToStringSplittedByACharacter(int dat
     int monthdayInt = dateInt % 100;
     string month = HelpingMethods::changeIntToStringInDoubleDiditFormat(monthInt);
     string monthday = HelpingMethods::changeIntToStringInDoubleDiditFormat(monthdayInt);
-/*
-    if ((1 <= monthInt) && (monthInt <= 9)) month += "0";
-    month += to_string(monthInt);
-    if ((1 <= monthdayInt) && (monthdayInt <= 9)) monthday += "0";
-    monthday += to_string(monthdayInt);
-*/
+
     string dateString = year + splittingCharacter + month + splittingCharacter + monthday;
 
     return dateString;
@@ -69,14 +64,7 @@ void DateOperations::setPresentDateInt()
 
 bool DateOperations::isALeapYear(int year)
 {
-    if ((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0))
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0)) ? true : false;
 }
 
 int DateOperations::getDayFromDateInt(int date)
@@ -106,19 +94,19 @@ int DateOperations::calculateAppropriateDaysQuantityInMonth(int date)
         if (monthNumber == 2)
         {
             if (isALeapYear(yearNumber))   return 29;
-            else                    return 28;
+            else                           return 28;
         }
         else if (monthNumber % 2 == 1) return 31;
-        else                            return 30;
+        else                           return 30;
     }
     else if (8 <= monthNumber)
     {
         if (monthNumber % 2 == 1)  return 30;
-        else                        return 31;
+        else                       return 31;
     }
 }
 
-int DateOperations::transcriptDateSplittedByACharacterFromStringToInt(string dateTextLineWithSeparator, char splittingCharacter)
+string DateOperations::transcriptDateSplittedByACharacterFromStringToString(string dateTextLineWithSeparator, char splittingCharacter)
 {
     string dateTextLineWithoutSeparator = "";
 
@@ -141,18 +129,17 @@ int DateOperations::transcriptDateSplittedByACharacterFromStringToInt(string dat
             character = dateTextLineWithSeparator[characterPosition];
     }
 
-    int dateInt = atoi(dateTextLineWithoutSeparator.c_str());
+    return dateTextLineWithoutSeparator;
+}
 
-    return dateInt;
+int DateOperations::transcriptDateSplittedByACharacterFromStringToInt(string dateTextLineWithSeparator, char splittingCharacter)
+{
+    return atoi(transcriptDateSplittedByACharacterFromStringToString(dateTextLineWithSeparator, splittingCharacter).c_str());
 }
 
 bool DateOperations::isDateBetweenProvidedDates(int dateFromInInt, int dateToInInt, int dateFromFileInInt)
 {
-
-    if ((dateFromInInt <= dateFromFileInInt) && (dateFromFileInInt <= dateToInInt))
-        return true;
-
-    return false;
+    return ((dateFromInInt <= dateFromFileInInt) && (dateFromFileInInt <= dateToInInt)) ? true : false;
 }
 
 bool DateOperations::isDateCorrect(int dateInInt)
@@ -166,11 +153,16 @@ bool DateOperations::isDateCorrect(int dateInInt)
             {
                 return true;
             }
-        else
-            false;
     }
-    else
-        return false;
+
+    return false;
+}
+
+bool DateOperations::checkDateFormat(string date)
+{
+    string dateWithoutSeparator = transcriptDateSplittedByACharacterFromStringToString(date, '-');
+
+    return (dateWithoutSeparator.length() != 8) ? false : true;
 }
 
 vector<Transfer> DateOperations::quickSort(vector<Transfer> transfers, int left, int right)
@@ -200,5 +192,4 @@ vector<Transfer> DateOperations::sortByDate(vector<Transfer> transfers)
     int right = transfers.size() - 1;
 
     return quickSort(transfers, left, right);
-
 }
